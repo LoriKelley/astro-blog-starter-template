@@ -1,10 +1,7 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
+---
+// src/pages/index.astro
 
+// Define your career slides right here in the file
 const slides = [
   {
     text: "I am a Senior Cloud Infrastructure Architect specializing in designing high-availability, zero-trust network topologies on global edge networks.",
@@ -32,15 +29,14 @@ const slides = [
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Career Profile & Specializations</title>
 		<style>
-			/* Reset and full-screen styles contained right in the head */
 			html, body {
 				margin: 0;
 				padding: 0;
 				width: 100%;
 				height: 100%;
-				overflow: hidden; /* Prevents scrolling */
+				overflow: hidden;
 				font-family: system-ui, sans-serif;
-				background-color: #111827; /* Dark elegant theme */
+				background-color: #111827;
 				color: #f3f4f6;
 			}
 
@@ -153,8 +149,6 @@ const slides = [
 	<body>
 
 		<main class="slider-container">
-			
-			<!-- Slides Wrapper -->
 			<div class="slides-inner">
 				{slides.map((slide, index) => (
 					<section class={`slide ${index === 0 ? 'active' : ''}`} data-index={index}>
@@ -175,17 +169,14 @@ const slides = [
 				))}
 			</div>
 
-			<!-- Right Navigation Arrow -->
 			<button id="next-arrow" class="nav-arrow" aria-label="Next Slide">
 				<svg xmlns="w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
 					<path d="m9 18 6-6-6-6"/>
 				</svg>
 			</button>
-
 		</main>
 
 		<script>
-			// Slide change functionality
 			const slides = document.querySelectorAll('.slide');
 			const nextBtn = document.getElementById('next-arrow');
 			let currentIndex = 0;
@@ -197,53 +188,5 @@ const slides = [
 			});
 		</script>
 
-	
-
-
-<!-- THIS WAS ORIGINAL EXAMPLE HOMEPAGE CODE FROM CLOUDFLARE ASTRO TEMPLATE 
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
- END ASTRO ORIGINAL HOME PAGE TEMPLATE -->
-
-
-
-</body>
+	</body>
 </html>
