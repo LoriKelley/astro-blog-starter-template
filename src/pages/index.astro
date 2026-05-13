@@ -3,7 +3,7 @@
 
 const slides = [
   {
-    text: "I'm adding this to save the new CSS. I am a Senior Cloud Infrastructure Architect specializing in designing high-availability, zero-trust network topologies on global edge networks.",
+    text: "I am a Senior Cloud Infrastructure Architect specializing in designing high-availability, zero-trust network topologies on global edge networks.",
     links: []
   },
   {
@@ -29,22 +29,12 @@ const slides = [
 		<title>Career Profile & Specializations</title>
 		<style is:global>
 			html, body {
-				margin: 0;
-				padding: 0;
-				width: 100%;
-				height: 100%;
-				overflow: hidden;
-				font-family: system-ui, sans-serif;
+				margin: 0 !important;
+				padding: 0 !important;
+				width: 100% !important;
+				height: 100% !important;
+				overflow: hidden !important;
 				background-color: #030303 !important;
-				background-image: linear-gradient(
-					135deg, 
-					rgba(135, 206, 235, 0.18) 0%,   
-					rgba(147, 112, 219, 0.14) 25%,  
-					rgba(255, 182, 193, 0.10) 50%,  
-					transparent 75%                 
-				) !important;
-				background-attachment: fixed;
-				color: #f3f4f6;
 			}
 
 			.slider-container {
@@ -54,6 +44,19 @@ const slides = [
 				display: flex;
 				align-items: center;
 				justify-content: center;
+				font-family: system-ui, sans-serif;
+				color: #f3f4f6;
+				background-color: #030303 !important;
+				
+				/* NEW BRIGHT COMET GRADIENT (Opacities boosted to 85%-95% so they are obvious) */
+				background-image: linear-gradient(
+					135deg, 
+					rgba(135, 206, 235, 0.90) 0%,   /* Neon Sky Blue Comet Head */
+					rgba(186, 147, 219, 0.85) 20%,  /* Light Purple Middle */
+					rgba(255, 182, 193, 0.80) 45%,  /* Light Pink Tail */
+					rgba(3, 3, 3, 1.00) 70%         /* Fades out completely to deep space black */
+				) !important;
+				background-attachment: fixed;
 			}
 
 			.slides-inner {
@@ -94,7 +97,9 @@ const slides = [
 				font-weight: 600;
 				letter-spacing: -0.02em;
 				margin-bottom: 2rem;
-				text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+				color: #ffffff;
+				/* Heavy drop shadow so text remains highly readable over the bright comet colors */
+				text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9), 0 2px 4px rgba(0, 0, 0, 0.9);
 			}
 
 			@media (max-width: 768px) {
@@ -111,17 +116,22 @@ const slides = [
 
 			.cert-link {
 				display: inline-block;
-				color: #87ceeb;
+				color: #030303; /* Dark text so it pops against the light pink gradient tail */
+				background: rgba(255, 255, 255, 0.8);
+				padding: 0.5rem 1rem;
+				border-radius: 4px;
 				text-decoration: none;
 				font-size: 1.2rem;
-				font-weight: 500;
-				transition: color 0.2s ease, text-shadow 0.2s ease;
+				font-weight: 600;
+				width: fit-content;
+				box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+				transition: all 0.2s ease;
 			}
 
 			.cert-link:hover {
-				color: #ffb6c1;
-				text-shadow: 0 0 8px rgba(255, 182, 193, 0.6);
-				text-decoration: underline;
+				background: #ffffff;
+				transform: translateX(5px);
+				box-shadow: 0 6px 12px rgba(0,0,0,0.2);
 			}
 
 			.nav-arrow {
@@ -129,9 +139,9 @@ const slides = [
 				right: 2rem;
 				top: 50%;
 				transform: translateY(-50%);
-				background: rgba(0, 0, 0, 0.4);
-				border: 1px solid rgba(255, 255, 255, 0.1);
-				color: #9ca3af;
+				background: rgba(0, 0, 0, 0.7); /* Darker mask for contrast */
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				color: #e5e7eb;
 				cursor: pointer;
 				width: 3.5rem;
 				height: 3.5rem;
@@ -147,18 +157,17 @@ const slides = [
 			.nav-arrow:hover {
 				color: #ffffff;
 				background-color: #0a0a0a;
-				border-color: #e5e7eb;
+				border-color: #ffffff;
 				transform: translateY(-50%) scale(1.15);
 				box-shadow: 
 					0 15px 30px -5px rgba(0, 0, 0, 0.95), 
-					0 0 20px 2px rgba(229, 231, 235, 0.4), 
-					inset 0 0 8px rgba(255, 255, 255, 0.2);
+					0 0 25px 5px rgba(255, 255, 255, 0.6), /* Vibrant bright silver neon glow */
+					inset 0 0 8px rgba(255, 255, 255, 0.4);
 			}
 
 			.nav-arrow svg {
 				width: 2rem;
 				height: 2rem;
-				filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
 			}
 		</style>
 	</head>
@@ -179,6 +188,7 @@ const slides = [
 										</a>
 									))}
 								</div>
+								
 							)}
 						</div>
 					</section>
