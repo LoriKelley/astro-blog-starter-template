@@ -1,7 +1,6 @@
 ---
 // src/pages/index.astro
 
-// Define your career slides right here in the file
 const slides = [
   {
     text: "I am a Senior Cloud Infrastructure Architect specializing in designing high-availability, zero-trust network topologies on global edge networks.",
@@ -28,7 +27,7 @@ const slides = [
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Career Profile & Specializations</title>
-		<style>
+		<style is:global>
 			html, body {
 				margin: 0;
 				padding: 0;
@@ -36,15 +35,14 @@ const slides = [
 				height: 100%;
 				overflow: hidden;
 				font-family: system-ui, sans-serif;
-				/* Cosmic black space base with a flying comet streak layout */
-				background-color: #030303;
+				background-color: #030303 !important;
 				background-image: linear-gradient(
 					135deg, 
-					rgba(135, 206, 235, 0.15) 0%,   /* Sky Blue Head */
-					rgba(147, 112, 219, 0.12) 25%,  /* Light Purple Body */
-					rgba(255, 182, 193, 0.08) 50%,  /* Light Pink Tail */
-					transparent 75%                 /* Deep Outer Space */
-				);
+					rgba(135, 206, 235, 0.18) 0%,   
+					rgba(147, 112, 219, 0.14) 25%,  
+					rgba(255, 182, 193, 0.10) 50%,  
+					transparent 75%                 
+				) !important;
 				background-attachment: fixed;
 				color: #f3f4f6;
 			}
@@ -96,7 +94,7 @@ const slides = [
 				font-weight: 600;
 				letter-spacing: -0.02em;
 				margin-bottom: 2rem;
-				text-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Pop text against space background */
+				text-shadow: 0 2px 10px rgba(0,0,0,0.5);
 			}
 
 			@media (max-width: 768px) {
@@ -113,7 +111,7 @@ const slides = [
 
 			.cert-link {
 				display: inline-block;
-				color: #87ceeb; /* Sky blue links to match theme */
+				color: #87ceeb;
 				text-decoration: none;
 				font-size: 1.2rem;
 				font-weight: 500;
@@ -121,18 +119,17 @@ const slides = [
 			}
 
 			.cert-link:hover {
-				color: #ffb6c1; /* Transitions to light pink on hover */
+				color: #ffb6c1;
 				text-shadow: 0 0 8px rgba(255, 182, 193, 0.6);
 				text-decoration: underline;
 			}
 
-			/* Styled Navigation Arrow */
 			.nav-arrow {
 				position: absolute;
 				right: 2rem;
 				top: 50%;
 				transform: translateY(-50%);
-				background: rgba(0, 0, 0, 0.4); /* Solid dark mask backdrop */
+				background: rgba(0, 0, 0, 0.4);
 				border: 1px solid rgba(255, 255, 255, 0.1);
 				color: #9ca3af;
 				cursor: pointer;
@@ -142,22 +139,19 @@ const slides = [
 				align-items: center;
 				justify-content: center;
 				border-radius: 50%;
-				/* Heavy black shadow protection + smooth hover transition setup */
-				box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.9), 0 0 0px rgba(255, 255, 255, 0);
+				box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.9);
 				transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 				z-index: 10;
 			}
 
-			/* Shiny Silver/Neon Interaction State */
 			.nav-arrow:hover {
 				color: #ffffff;
 				background-color: #0a0a0a;
-				border-color: #e5e7eb; /* Silver rim border */
+				border-color: #e5e7eb;
 				transform: translateY(-50%) scale(1.15);
-				/* High-contrast neon silver reflection mask */
 				box-shadow: 
 					0 15px 30px -5px rgba(0, 0, 0, 0.95), 
-					0 0 20px 2px rgba(229, 231, 235, 0.4), /* Neon silver external aura */
+					0 0 20px 2px rgba(229, 231, 235, 0.4), 
 					inset 0 0 8px rgba(255, 255, 255, 0.2);
 			}
 
