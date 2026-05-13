@@ -1,16 +1,211 @@
----
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
----
-
 <!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
+
+const slides = [
+  {
+    text: "I am a Senior Cloud Infrastructure Architect specializing in designing high-availability, zero-trust network topologies on global edge networks.",
+    links: []
+  },
+  {
+    text: "My primary expertise lies in automating multi-region Kubernetes deployments, optimization of serverless compute, and building resilient CI/CD pipelines.",
+    links: []
+  },
+  {
+    text: "I validate my architectural expertise through industry-recognized qualifications. Click below to verify my credentials:",
+    links: [
+      { name: "AWS Certified Solutions Architect - Professional", url: "https://your-credential-link.com" },
+      { name: "Cloudflare Certified Professional Security Engineer", url: "https://your-credential-link.com" },
+      { name: "HashiCorp Certified: Terraform Associate", url: "https://your-credential-link.com" }
+    ]
+  }
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Career Profile & Specializations</title>
+		<style>
+			/* Reset and full-screen styles contained right in the head */
+			html, body {
+				margin: 0;
+				padding: 0;
+				width: 100%;
+				height: 100%;
+				overflow: hidden; /* Prevents scrolling */
+				font-family: system-ui, sans-serif;
+				background-color: #111827; /* Dark elegant theme */
+				color: #f3f4f6;
+			}
+
+			.slider-container {
+				position: relative;
+				width: 100vw;
+				height: 100vh;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.slides-inner {
+				width: 100%;
+				height: 100%;
+				position: relative;
+			}
+
+			.slide {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				opacity: 0;
+				pointer-events: none;
+				transition: opacity 0.5s ease-in-out;
+				padding: 0 10%;
+				box-sizing: border-box;
+			}
+
+			.slide.active {
+				opacity: 1;
+				pointer-events: auto;
+			}
+
+			.slide-content {
+				max-width: 800px;
+				text-align: left;
+			}
+
+			.description-text {
+				font-size: 2.5rem;
+				line-height: 1.4;
+				font-weight: 600;
+				letter-spacing: -0.02em;
+				margin-bottom: 2rem;
+			}
+
+			@media (max-width: 768px) {
+				.description-text {
+					font-size: 1.75rem;
+				}
+			}
+
+			.certifications-container {
+				display: flex;
+				flex-direction: column;
+				gap: 1rem;
+			}
+
+			.cert-link {
+				display: inline-block;
+				color: #3b82f6;
+				text-decoration: none;
+				font-size: 1.2rem;
+				font-weight: 500;
+				transition: color 0.2s ease;
+			}
+
+			.cert-link:hover {
+				color: #60a5fa;
+				text-decoration: underline;
+			}
+
+			.nav-arrow {
+				position: absolute;
+				right: 2rem;
+				top: 50%;
+				transform: translateY(-50%);
+				background: transparent;
+				border: none;
+				color: #9ca3af;
+				cursor: pointer;
+				width: 3.5rem;
+				height: 3.5rem;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border-radius: 50%;
+				transition: all 0.2s ease;
+				z-index: 10;
+			}
+
+			.nav-arrow:hover {
+				color: #ffffff;
+				background-color: rgba(255, 255, 255, 0.1);
+				transform: translateY(-50%) scale(1.1);
+			}
+
+			.nav-arrow svg {
+				width: 2rem;
+				height: 2rem;
+			}
+		</style>
+	</head>
+	<body>
+
+		<main class="slider-container">
+			
+			<!-- Slides Wrapper -->
+			<div class="slides-inner">
+				{slides.map((slide, index) => (
+					<section class={`slide ${index === 0 ? 'active' : ''}`} data-index={index}>
+						<div class="slide-content">
+							<p class="description-text">{slide.text}</p>
+							
+							{slide.links.length > 0 && (
+								<div class="certifications-container">
+									{slide.links.map(link => (
+										<a href={link.url} target="_blank" rel="noopener noreferrer" class="cert-link">
+											{link.name} &rarr;
+										</a>
+									))}
+								</div>
+							)}
+						</div>
+					</section>
+				))}
+			</div>
+
+			<!-- Right Navigation Arrow -->
+			<button id="next-arrow" class="nav-arrow" aria-label="Next Slide">
+				<svg xmlns="w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+					<path d="m9 18 6-6-6-6"/>
+				</svg>
+			</button>
+
+		</main>
+
+		<script>
+			// Slide change functionality
+			const slides = document.querySelectorAll('.slide');
+			const nextBtn = document.getElementById('next-arrow');
+			let currentIndex = 0;
+
+			nextBtn?.addEventListener('click', () => {
+				slides[currentIndex].classList.remove('active');
+				currentIndex = (currentIndex + 1) % slides.length;
+				slides[currentIndex].classList.add('active');
+			});
+		</script>
+
+	
+
+
+<!-- THIS WAS ORIGINAL EXAMPLE HOMEPAGE CODE FROM CLOUDFLARE ASTRO TEMPLATE 
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
 		<Header />
 		<main>
 			<h1>🧑‍🚀 Hello, Astronaut!</h1>
@@ -46,5 +241,9 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 			</p>
 		</main>
 		<Footer />
-	</body>
+ END ASTRO ORIGINAL HOME PAGE TEMPLATE -->
+
+
+
+</body>
 </html>
