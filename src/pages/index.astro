@@ -3,15 +3,8 @@
 
 const slides = [
   {
-    text: "I am a Full-Stack web developer for both frontend and backend web development applications, for both websites and mobile apps. I can manage the entire project, whether we do a custom build or use 3rd-party website management software.",
-    links: []
-  },
-  {
-    text: "I can turn any existing design into pure frontend code for a website, webpage, or mobile app using vanilla coding languages, or if preferred, popular webpage builders, including wordpress .",
-    links: []
-  },
-    {
     text: "I can debug and fix any javascript, php, css, or html code for issues, including plugins, themes, or any other online tools used today that work with those languages.",
+    links: [], // Keeps an active empty array out here so the build stays safe!
     /* PUT CREDENTIALS HERE IN FUTURE ONCE GET THEM:
     links: [
       { name: "AWS Certified Solutions Architect - Professional", url: "https://your-credential-link.com" },
@@ -19,9 +12,8 @@ const slides = [
       { name: "HashiCorp Certified: Terraform Associate", url: "https://your-credential-link.com" }
     ]
     */
-  } // <-- The closing curly brace for this slide must be outside the comment block
+  }
 ];
-
 ---
 
 <!doctype html>
@@ -50,8 +42,6 @@ const slides = [
 				font-family: system-ui, sans-serif;
 				color: #f3f4f6;
 				background-color: #030303 !important;
-				
-				/* NEW BRIGHT COMET GRADIENT (Opacities boosted to 85%-95% so they are obvious) */
 				background-image: linear-gradient(
 					135deg, 
 					rgba(135, 206, 235, 0.90) 0%,   /* Neon Sky Blue Comet Head */
@@ -101,7 +91,6 @@ const slides = [
 				letter-spacing: -0.02em;
 				margin-bottom: 2rem;
 				color: #ffffff;
-				/* Heavy drop shadow so text remains highly readable over the bright comet colors */
 				text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9), 0 2px 4px rgba(0, 0, 0, 0.9);
 			}
 
@@ -119,7 +108,7 @@ const slides = [
 
 			.cert-link {
 				display: inline-block;
-				color: #030303; /* Dark text so it pops against the light pink gradient tail */
+				color: #030303; 
 				background: rgba(255, 255, 255, 0.8);
 				padding: 0.5rem 1rem;
 				border-radius: 4px;
@@ -142,7 +131,7 @@ const slides = [
 				right: 2rem;
 				top: 50%;
 				transform: translateY(-50%);
-				background: rgba(0, 0, 0, 0.7); /* Darker mask for contrast */
+				background: rgba(0, 0, 0, 0.7); 
 				border: 1px solid rgba(255, 255, 255, 0.2);
 				color: #e5e7eb;
 				cursor: pointer;
@@ -164,7 +153,7 @@ const slides = [
 				transform: translateY(-50%) scale(1.15);
 				box-shadow: 
 					0 15px 30px -5px rgba(0, 0, 0, 0.95), 
-					0 0 25px 5px rgba(255, 255, 255, 0.6), /* Vibrant bright silver neon glow */
+					0 0 25px 5px rgba(255, 255, 255, 0.6), 
 					inset 0 0 8px rgba(255, 255, 255, 0.4);
 			}
 
@@ -183,7 +172,7 @@ const slides = [
 						<div class="slide-content">
 							<p class="description-text">{slide.text}</p>
 							
-							{slide.links.length > 0 && (
+							{slide.links && slide.links.length > 0 && (
 								<div class="certifications-container">
 									{slide.links.map(link => (
 										<a href={link.url} target="_blank" rel="noopener noreferrer" class="cert-link">
@@ -191,7 +180,6 @@ const slides = [
 										</a>
 									))}
 								</div>
-								
 							)}
 						</div>
 					</section>
