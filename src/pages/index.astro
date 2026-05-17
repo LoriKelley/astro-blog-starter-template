@@ -12,7 +12,7 @@ const slides = [
   },
   {
     text: "I can debug and fix any javascript, php, css, or html code for issues, including plugins, themes, or any other online tools used today that work with those languages.",
-    links: [], // Added fallback so the build succeeds while your credentials stay commented out!
+    links: [], 
     /* PUT CREDENTIALS HERE IN FUTURE ONCE GET THEM:
     links: [
       { name: "AWS Certified Solutions Architect - Professional", url: "https://your-credential-link.com" },
@@ -20,6 +20,11 @@ const slides = [
       { name: "HashiCorp Certified: Terraform Associate", url: "https://your-credential-link.com" }
     ]
     */
+  },
+  {
+    isContactSlide: true,
+    text: "Interested in chatting to see if I would be a great fit for your business's online presence? We can set up a zoom or phone call or just email to answer any questions you may have. Submit your contact information and reason for contacting ",
+    links: []
   }
 ];
 ---
@@ -50,14 +55,12 @@ const slides = [
 				font-family: system-ui, sans-serif;
 				color: #f3f4f6;
 				background-color: #030303 !important;
-				
-				/* NEW BRIGHT COMET GRADIENT (Opacities boosted to 85%-95% so they are obvious) */
 				background-image: linear-gradient(
 					135deg, 
-					rgba(135, 206, 235, 0.90) 0%,   /* Neon Sky Blue Comet Head */
-					rgba(186, 147, 219, 0.85) 20%,  /* Light Purple Middle */
-					rgba(255, 182, 193, 0.80) 45%,  /* Light Pink Tail */
-					rgba(3, 3, 3, 1.00) 70%         /* Fades out completely to deep space black */
+					rgba(135, 206, 235, 0.90) 0%,   
+					rgba(186, 147, 219, 0.85) 20%,  
+					rgba(255, 182, 193, 0.80) 45%,  
+					rgba(3, 3, 3, 1.00) 70%         
 				) !important;
 				background-attachment: fixed;
 			}
@@ -101,7 +104,6 @@ const slides = [
 				letter-spacing: -0.02em;
 				margin-bottom: 2rem;
 				color: #ffffff;
-				/* Heavy drop shadow so text remains highly readable over the bright comet colors */
 				text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9), 0 2px 4px rgba(0, 0, 0, 0.9);
 			}
 
@@ -109,6 +111,21 @@ const slides = [
 				.description-text {
 					font-size: 1.75rem;
 				}
+			}
+
+			/* Inline underline link style for Slide 4 */
+			.inline-trigger-link {
+				color: #ffffff;
+				text-decoration: underline;
+				text-underline-offset: 4px;
+				text-decoration-color: #ffffff;
+				cursor: pointer;
+				transition: color 0.2s ease, text-decoration-color 0.2s ease;
+			}
+
+			.inline-trigger-link:hover {
+				color: #87ceeb;
+				text-decoration-color: #87ceeb;
 			}
 
 			.certifications-container {
@@ -119,7 +136,7 @@ const slides = [
 
 			.cert-link {
 				display: inline-block;
-				color: #030303; /* Dark text so it pops against the light pink gradient tail */
+				color: #030303; 
 				background: rgba(255, 255, 255, 0.8);
 				padding: 0.5rem 1rem;
 				border-radius: 4px;
@@ -137,7 +154,6 @@ const slides = [
 				box-shadow: 0 6px 12px rgba(0,0,0,0.2);
 			}
 
-			/* Combined Nav Container on the right-center */
 			.nav-group-container {
 				position: absolute;
 				right: 2rem;
@@ -150,7 +166,6 @@ const slides = [
 				cursor: pointer;
 			}
 
-			/* Read More Text Styles */
 			.read-more-text {
 				font-size: 1.25rem;
 				font-weight: 700;
@@ -158,12 +173,11 @@ const slides = [
 				text-transform: uppercase;
 				user-select: none;
 				text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
-				/* Apply the color animation */
 				animation: cosmicPulse 1s infinite ease-in-out;
 			}
 
 			.nav-arrow {
-				background: rgba(0, 0, 0, 0.7); /* Darker mask for contrast */
+				background: rgba(0, 0, 0, 0.7); 
 				border: 1px solid rgba(255, 255, 255, 0.2);
 				cursor: pointer;
 				width: 3.5rem;
@@ -174,37 +188,24 @@ const slides = [
 				border-radius: 50%;
 				box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.9);
 				transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-				/* Apply the identical color animation to the arrow stroke */
 				animation: cosmicPulse 1s infinite ease-in-out;
 			}
 
-			/* Synchronized Color Transition Animation */
 			@keyframes cosmicPulse {
-				0%, 100% {
-					color: #ffffff;
-					fill: transparent;
-				}
-				45% {
-					color: #ffffff;
-					fill: transparent;
-				}
-				/* Sharp split-second color snap down to the sky blue hex */
+				0%, 100% { color: #ffffff; fill: transparent; }
+				45% { color: #ffffff; fill: transparent; }
 				50%, 95% {
 					color: #87ceeb;
 					filter: drop-shadow(0 0 8px rgba(135, 206, 235, 0.8));
 				}
 			}
 
-			/* Hover State Controls */
 			.nav-group-container:hover .nav-arrow {
 				background-color: #0a0a0a;
 				border-color: #ffffff;
 				transform: scale(1.15);
-				box-shadow: 
-					0 15px 30px -5px rgba(0, 0, 0, 0.95), 
-					0 0 25px 5px rgba(255, 255, 255, 0.6), 
-					inset 0 0 8px rgba(255, 255, 255, 0.4);
-				animation-play-state: paused; /* Locks to white reflection on mouse hover */
+				box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.95), 0 0 25px 5px rgba(255, 255, 255, 0.6), inset 0 0 8px rgba(255, 255, 255, 0.4);
+				animation-play-state: paused; 
 				color: #ffffff !important;
 			}
 
@@ -218,6 +219,128 @@ const slides = [
 				width: 2rem;
 				height: 2rem;
 			}
+
+			/* OVERLAY STRUCTURE WITH EXTENSIVE SHADOW BORDERING */
+			.form-overlay {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100vw;
+				height: 100vh;
+				background-color: rgba(0, 0, 0, 0.6); /* Translucent dim filter mask */
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				opacity: 0;
+				pointer-events: none;
+				transition: opacity 0.3s ease-in-out;
+				z-index: 100;
+				padding: 20px;
+				box-sizing: border-box;
+			}
+
+			.form-overlay.open {
+				opacity: 1;
+				pointer-events: auto;
+			}
+
+			.form-card {
+				background-color: #111827;
+				width: 100%;
+				max-width: 600px;
+				max-height: 90vh;
+				overflow-y: auto;
+				border-radius: 12px;
+				padding: 2.5rem;
+				position: relative;
+				border: 1px solid rgba(255, 255, 255, 0.1);
+				/* Heavy high-contrast black border drop-shadow to make it pop over page layout */
+				box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.45), 0 25px 50px -12px rgba(0, 0, 0, 0.95);
+			}
+
+			.close-overlay-btn {
+				position: absolute;
+				top: 1.25rem;
+				right: 1.25rem;
+				background: transparent;
+				border: 1px solid rgba(255, 255, 255, 0.3);
+				color: #9ca3af;
+				padding: 0.4rem 1rem;
+				border-radius: 4px;
+				font-weight: 700;
+				font-size: 0.85rem;
+				text-transform: uppercase;
+				cursor: pointer;
+				transition: all 0.2s ease;
+			}
+
+			.close-overlay-btn:hover {
+				color: #ffffff;
+				border-color: #ffffff;
+				background-color: rgba(255, 255, 255, 0.05);
+			}
+
+			.form-title {
+				font-size: 1.75rem;
+				font-weight: 700;
+				margin-bottom: 1.5rem;
+				color: #ffffff;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+				padding-bottom: 0.5rem;
+			}
+
+			/* CONTACT FORM CONTROL FIELDS */
+			.form-group {
+				display: flex;
+				flex-direction: column;
+				gap: 0.5rem;
+				margin-bottom: 1.25rem;
+			}
+
+			.form-group label {
+				font-size: 0.9rem;
+				font-weight: 600;
+				color: #d1d5db;
+			}
+
+			.form-group label span {
+				color: #ef4444;
+				margin-left: 0.25rem;
+			}
+
+			.form-input, .form-select {
+				background-color: #1f2937;
+				border: 1px solid #374151;
+				border-radius: 6px;
+				padding: 0.75rem;
+				color: #ffffff;
+				font-family: inherit;
+				font-size: 1rem;
+				outline: none;
+				transition: border-color 0.2s ease;
+			}
+
+			.form-input:focus, .form-select:focus {
+				border-color: #87ceeb;
+			}
+
+			.submit-form-btn {
+				background-color: #87ceeb;
+				color: #030303;
+				border: none;
+				padding: 0.85rem;
+				border-radius: 6px;
+				font-size: 1.1rem;
+				font-weight: 700;
+				width: 100%;
+				cursor: pointer;
+				transition: background-color 0.2s ease;
+				margin-top: 0.5rem;
+			}
+
+			.submit-form-btn:hover {
+				background-color: #60a5fa;
+			}
 		</style>
 	</head>
 	<body>
@@ -227,7 +350,14 @@ const slides = [
 				{slides.map((slide, index) => (
 					<section class={`slide ${index === 0 ? 'active' : ''}`} data-index={index}>
 						<div class="slide-content">
-							<p class="description-text">{slide.text}</p>
+							{slide.isContactSlide ? (
+								<p class="description-text">
+									{slide.text}
+									<span id="open-overlay-trigger" class="inline-trigger-link">here</span>.
+								</p>
+							) : (
+								<p class="description-text">{slide.text}</p>
+							)}
 							
 							{slide.links && slide.links.length > 0 && (
 								<div class="certifications-container">
@@ -237,14 +367,12 @@ const slides = [
 										</a>
 									))}
 								</div>
-								
 							)}
 						</div>
 					</section>
 				))}
 			</div>
 
-			<!-- Unified Clickable Control Group -->
 			<div id="next-arrow-group" class="nav-group-container">
 				<span class="read-more-text">Read More</span>
 				<button class="nav-arrow" aria-label="Next Slide">
@@ -255,7 +383,58 @@ const slides = [
 			</div>
 		</main>
 
+		<!-- MODAL CONTACT INTERACTIVE FORM OVERLAY -->
+		<div id="contact-overlay" class="form-overlay">
+			<div class="form-card">
+				<button id="close-overlay-trigger" class="close-overlay-btn">Close</button>
+				<h2 class="form-title">Contact Information</h2>
+				
+				<form id="developer-contact-form">
+					<div class="form-group">
+						<label for="client-name">Name<span>*</span></label>
+						<input type="text" id="client-name" class="form-input" required />
+					</div>
+
+					<div class="form-group">
+						<label for="client-company">Company Name</label>
+						<input type="text" id="client-company" class="form-input" />
+					</div>
+
+					<div class="form-group">
+						<label for="client-url">Website URL</label>
+						<input type="url" id="client-url" class="form-input" placeholder="https://" />
+					</div>
+
+					<div class="form-group">
+						<label for="client-email">Email Address<span>*</span></label>
+						<input type="email" id="client-email" class="form-input" required />
+					</div>
+
+					<div class="form-group">
+						<label for="client-phone">Phone Number</label>
+						<input type="tel" id="client-phone" class="form-input" />
+					</div>
+
+					<div class="form-group">
+						<label for="client-category">Project Category<span>*</span></label>
+						<select id="client-category" class="form-select" required>
+							<option value="" disabled selected>Select a category...</option>
+							<option value="Full-Stack, long-term website project (more than 30 days)">Full-Stack, long-term website project (more than 30 days)</option>
+							<option value="Full-Stack, short term website project">Full-Stack, short term website project</option>
+							<option value="Help with a few design (frontend) bugs on my website">Help with a few design (frontend) bugs on my website</option>
+							<option value="Help with a few backend bugs on my website">Help with a few backend bugs on my website</option>
+							<option value="Help me figure out an error on my wordpress site">Help me figure out an error on my wordpress site</option>
+							<option value="Write a custom script, template, theme, or plugin for a CMS (Wordpress, Drupal, etc) to fit my website">Write a custom script, template, theme, or plugin for a CMS (Wordpress, Drupal, etc) to fit my website</option>
+						</select>
+					</div>
+
+					<button type="submit" class="submit-form-btn">Submit Request</button>
+				</form>
+			</div>
+		</div>
+
 		<script>
+			// Slide Engine Functionality
 			const slides = document.querySelectorAll('.slide');
 			const nextBtnGroup = document.getElementById('next-arrow-group');
 			let currentIndex = 0;
@@ -264,6 +443,50 @@ const slides = [
 				slides[currentIndex].classList.remove('active');
 				currentIndex = (currentIndex + 1) % slides.length;
 				slides[currentIndex].classList.add('active');
+			});
+
+			// Modal Overlay Interactions Functionality
+			const overlayElement = document.getElementById('contact-overlay');
+			const openTrigger = document.getElementById('open-overlay-trigger');
+			const closeTrigger = document.getElementById('close-overlay-trigger');
+
+			openTrigger?.addEventListener('click', () => {
+				overlayElement?.classList.add('open');
+			});
+
+			closeTrigger?.addEventListener('click', () => {
+				overlayElement?.classList.remove('open');
+			});
+
+			// Email Formatting and Assembly Routing
+			const contactForm = document.getElementById('developer-contact-form');
+			contactForm?.addEventListener('submit', (e) => {
+				e.preventDefault();
+
+				const name = (document.getElementById('client-name') as HTMLInputElement).value;
+				const company = (document.getElementById('client-company') as HTMLInputElement).value || "Not Provided";
+				const url = (document.getElementById('client-url') as HTMLInputElement).value || "Not Provided";
+				const email = (document.getElementById('client-email') as HTMLInputElement).value;
+				const phone = (document.getElementById('client-phone') as HTMLInputElement).value || "Not Provided";
+				const category = (document.getElementById('client-category') as HTMLSelectElement).value;
+
+				// Format text sequentially for clear email reading
+				const emailSubject = encodeURIComponent(`Inquiry from ${name} - ${category.substring(0, 30)}...`);
+				const emailBody = encodeURIComponent(
+					`New Website Contact Form Submission:\n\n` +
+					`Name: ${name}\n` +
+					`Company Name: ${company}\n` +
+					`Website URL: ${url}\n` +
+					`Email Address: ${email}\n` +
+					`Phone Number: ${phone}\n` +
+					`Project Category: ${category}\n`
+				);
+
+				// Route to user's native email client setup
+				window.location.href = `mailto:lorideveloper@://gmail.com{emailSubject}&body=${emailBody}`;
+				
+				// Automatically dismiss overlay block upon hand-off execution
+				overlayElement?.classList.remove('open');
 			});
 		</script>
 
