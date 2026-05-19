@@ -113,7 +113,6 @@ const slides = [
 				}
 			}
 
-			/* Inline underline link style for Slide 4 */
 			.inline-trigger-link {
 				color: #ffffff;
 				text-decoration: underline;
@@ -220,14 +219,14 @@ const slides = [
 				height: 2rem;
 			}
 
-			/* OVERLAY STRUCTURE WITH EXTENSIVE SHADOW BORDERING */
+			/* FORM MODAL STRUCTURAL CONTAINER BLOCKS */
 			.form-overlay {
 				position: fixed;
 				top: 0;
 				left: 0;
 				width: 100vw;
 				height: 100vh;
-				background-color: rgba(0, 0, 0, 0.6); /* Translucent dim filter mask */
+				background-color: rgba(0, 0, 0, 0.6); 
 				display: flex;
 				align-items: center;
 				justify-content: center;
@@ -247,14 +246,13 @@ const slides = [
 			.form-card {
 				background-color: #111827;
 				width: 100%;
-				max-width: 600px;
+				max-width: 650px;
 				max-height: 90vh;
 				overflow-y: auto;
 				border-radius: 12px;
 				padding: 2.5rem;
 				position: relative;
 				border: 1px solid rgba(255, 255, 255, 0.1);
-				/* Heavy high-contrast black border drop-shadow to make it pop over page layout */
 				box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.45), 0 25px 50px -12px rgba(0, 0, 0, 0.95);
 			}
 
@@ -289,12 +287,12 @@ const slides = [
 				padding-bottom: 0.5rem;
 			}
 
-			/* CONTACT FORM CONTROL FIELDS */
 			.form-group {
 				display: flex;
 				flex-direction: column;
 				gap: 0.5rem;
 				margin-bottom: 1.25rem;
+				position: relative;
 			}
 
 			.form-group label {
@@ -308,7 +306,26 @@ const slides = [
 				margin-left: 0.25rem;
 			}
 
-			.form-input, .form-select {
+			/* TWO DROP-DOWN ARRANGEMENT WITH FLEXBOX */
+			.time-select-row {
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+				width: 100%;
+			}
+
+			.time-select-row select {
+				flex: 1;
+			}
+
+			.time-split-word {
+				color: #9ca3af;
+				font-weight: 600;
+				font-size: 0.95rem;
+				text-transform: lowercase;
+			}
+
+			.form-input, .form-select, .form-textarea {
 				background-color: #1f2937;
 				border: 1px solid #374151;
 				border-radius: 6px;
@@ -318,10 +335,31 @@ const slides = [
 				font-size: 1rem;
 				outline: none;
 				transition: border-color 0.2s ease;
+				box-sizing: border-box;
+				width: 100%;
 			}
 
-			.form-input:focus, .form-select:focus {
+			.form-textarea {
+				height: 120px;
+				resize: vertical;
+			}
+
+			.form-input:focus, .form-select:focus, .form-textarea:focus {
 				border-color: #87ceeb;
+			}
+
+			/* HIGH-UTILITY CUSTOM LIVE ERROR CONTAINER STYLES */
+			.error-warning-label {
+				color: #ef4444 !important;
+				font-weight: 700 !important;
+				font-size: 0.8rem !important;
+				margin-top: 0.25rem;
+				display: none; /* Injected dynamically by JavaScript hook events */
+			}
+
+			/* Input highlight flag for native focus errors */
+			.input-error-border {
+				border-color: #ef4444 !important;
 			}
 
 			.submit-form-btn {
@@ -374,7 +412,7 @@ const slides = [
 			</div>
 
 			<div id="next-arrow-group" class="nav-group-container">
-				<span class="read-more-text">Read More</span>
+				<span id="nav-text-label" class="read-more-text">Read More</span>
 				<button class="nav-arrow" aria-label="Next Slide">
 					<svg xmlns="w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
 						<path d="m9 18 6-6-6-6"/>
@@ -383,16 +421,18 @@ const slides = [
 			</div>
 		</main>
 
-		<!-- MODAL CONTACT INTERACTIVE FORM OVERLAY -->
+		<!-- INTERACTIVE CONTACT FORM MODAL SYSTEM -->
 		<div id="contact-overlay" class="form-overlay">
 			<div class="form-card">
 				<button id="close-overlay-trigger" class="close-overlay-btn">Close</button>
 				<h2 class="form-title">Contact Information</h2>
 				
-				<form id="developer-contact-form">
+				<!-- Native validation overridden via novalidate to allow custom styled error labels -->
+				<form id="developer-contact-form" novalidate>
 					<div class="form-group">
 						<label for="client-name">Name<span>*</span></label>
-						<input type="text" id="client-name" class="form-input" required />
+						<input type="text" id="client-name" class="form-input" data-required="true" />
+						<span class="error-warning-label" id="err-client-name">This field is required</span>
 					</div>
 
 					<div class="form-group">
@@ -407,7 +447,8 @@ const slides = [
 
 					<div class="form-group">
 						<label for="client-email">Email Address<span>*</span></label>
-						<input type="email" id="client-email" class="form-input" required />
+						<input type="email" id="client-email" class="form-input" data-required="true" />
+						<span class="error-warning-label" id="err-client-email">This field is required</span>
 					</div>
 
 					<div class="form-group">
@@ -417,7 +458,7 @@ const slides = [
 
 					<div class="form-group">
 						<label for="client-category">Project Category<span>*</span></label>
-						<select id="client-category" class="form-select" required>
+						<select id="client-category" class="form-select" data-required="true">
 							<option value="" disabled selected>Select a category...</option>
 							<option value="Full-Stack, long-term website project (more than 30 days)">Full-Stack, long-term website project (more than 30 days)</option>
 							<option value="Full-Stack, short term website project">Full-Stack, short term website project</option>
@@ -426,6 +467,55 @@ const slides = [
 							<option value="Help me figure out an error on my wordpress site">Help me figure out an error on my wordpress site</option>
 							<option value="Write a custom script, template, theme, or plugin for a CMS (Wordpress, Drupal, etc) to fit my website">Write a custom script, template, theme, or plugin for a CMS (Wordpress, Drupal, etc) to fit my website</option>
 						</select>
+						<span class="error-warning-label" id="err-client-category">This field is required</span>
+					</div>
+
+					<!-- ADDITION 1: TIME RANGE DROP-DOWN MATRIX FIELDS -->
+					<div class="form-group">
+						<label>Best time to contact you: Between...</label>
+						<div class="time-select-row">
+							<select id="time-start" class="form-select">
+								<option value="" selected>Select start time...</option>
+								<option value="8 AM">8 AM</option>
+								<option value="9 AM">9 AM</option>
+								<option value="10 AM">10 AM</option>
+								<option value="11 AM">11 AM</option>
+								<option value="12 PM">12 PM</option>
+								<option value="1 PM">1 PM</option>
+								<option value="2 PM">2 PM</option>
+								<option value="3 PM">3 PM</option>
+								<option value="4 PM">4 PM</option>
+								<option value="5 PM">5 PM</option>
+								<option value="6 PM">6 PM</option>
+								<option value="7 PM">7 PM</option>
+								<option value="8 PM">8 PM</option>
+							</select>
+							<span class="time-split-word">and</span>
+							<select id="time-end" class="form-select">
+								<option value="" selected>Select end time...</option>
+								<option value="9 AM">9 AM</option>
+								<option value="10 AM">10 AM</option>
+								<option value="11 AM">11 AM</option>
+								<option value="12 PM">12 PM</option>
+								<option value="1 PM">1 PM</option>
+								<option value="2 PM">2 PM</option>
+								<option value="3 PM">3 PM</option>
+								<option value="4 PM">4 PM</option>
+								<option value="5 PM">5 PM</option>
+								<option value="6 PM">6 PM</option>
+								<option value="7 PM">7 PM</option>
+								<option value="8 PM">8 PM</option>
+								<option value="9 PM">9 PM</option>
+							</select>
+						</div>
+					</div>
+
+					<!-- ADDITION 2: PROJECT SUMMARY TEXTAREA CONTAINER -->
+					<div class="form-group">
+						<label for="client-summary">Describe a small summary of your project and questions:<span>*</span></label>
+						<textarea id="client-summary" class="form-textarea" maxlength="1000" data-required="true"></textarea>
+						<span class="error-warning-label" id="err-client-summary">This field is required</span>
+						<span class="error-warning-label" id="err-client-summary-min">You haven't reached the minimum amount of characters- please describe your reason for contacting</span>
 					</div>
 
 					<button type="submit" class="submit-form-btn">Submit Request</button>
@@ -434,15 +524,23 @@ const slides = [
 		</div>
 
 		<script>
-			// Slide Engine Functionality
+			// Slide Engine Component Core
 			const slides = document.querySelectorAll('.slide');
 			const nextBtnGroup = document.getElementById('next-arrow-group');
+			const navTextLabel = document.getElementById('nav-text-label');
 			let currentIndex = 0;
 
 			nextBtnGroup?.addEventListener('click', () => {
 				slides[currentIndex].classList.remove('active');
 				currentIndex = (currentIndex + 1) % slides.length;
 				slides[currentIndex].classList.add('active');
+
+				// DYNAMIC OVERRIDE: Alter structural labels if user lands on final slide
+				if (currentIndex === slides.length - 1) {
+					if (navTextLabel) navTextLabel.innerText = "Start Over";
+				} else {
+					if (navTextLabel) navTextLabel.innerText = "Read More";
+				}
 			});
 
 			// Modal Overlay Interactions Functionality
@@ -458,19 +556,76 @@ const slides = [
 				overlayElement?.classList.remove('open');
 			});
 
-			// Email Formatting and Assembly Routing
+			// LIVE INPUT EVENT HANDLING FOR TEXTAREA LENGTH MINIMUMS
+			const summaryTextArea = document.getElementById('client-summary') as HTMLTextAreaElement;
+			const minErrorLabel = document.getElementById('err-client-summary-min') as HTMLElement;
+			const standardSummaryError = document.getElementById('err-client-summary') as HTMLElement;
+
+			summaryTextArea?.addEventListener('input', () => {
+				const currentLength = summaryTextArea.value.length;
+				
+				if (currentLength > 0 && currentLength < 30) {
+					minErrorLabel.style.display = 'block';
+					standardSummaryError.style.display = 'none';
+					summaryTextArea.classList.add('input-error-border');
+				} else {
+					minErrorLabel.style.display = 'none';
+					summaryTextArea.classList.remove('input-error-border');
+				}
+			});
+
+			// INTERACTIVE SUBMIT CAPTURE EVENT AND ROUTING COMPENDIUM
 			const contactForm = document.getElementById('developer-contact-form');
 			contactForm?.addEventListener('submit', (e) => {
 				e.preventDefault();
 
+				// Reset all error messages and styles before validation
+				const errors = document.querySelectorAll('.error-warning-label');
+				errors.forEach(err => (err as HTMLElement).style.display = 'none');
+				const inputs = document.querySelectorAll('.form-input, .form-select, .form-textarea');
+				inputs.forEach(inp => inp.classList.remove('input-error-border'));
+
+				let formIsValid = true;
+
+				// Process checking fields with data-required properties
+				const requiredElements = contactForm.querySelectorAll('[data-required="true"]');
+				requiredElements.forEach(elem => {
+					const value = (elem as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement).value.trim();
+					const id = elem.id;
+					const errorSpan = document.getElementById(`err-${id}`);
+
+					if (!value) {
+						if (errorSpan) errorSpan.style.display = 'block';
+						elem.classList.add('input-error-border');
+						formIsValid = false;
+					}
+				});
+
+				// Custom confirmation check for textarea length rules
+				if (summaryTextArea.value.trim().length > 0 && summaryTextArea.value.trim().length < 30) {
+					minErrorLabel.style.display = 'block';
+					summaryTextArea.classList.add('input-error-border');
+					formIsValid = false;
+				}
+
+				if (!formIsValid) return; // Halt script hand-off execution if errors exist
+
+				// Map Form Element Parameter Collections
 				const name = (document.getElementById('client-name') as HTMLInputElement).value;
 				const company = (document.getElementById('client-company') as HTMLInputElement).value || "Not Provided";
 				const url = (document.getElementById('client-url') as HTMLInputElement).value || "Not Provided";
 				const email = (document.getElementById('client-email') as HTMLInputElement).value;
 				const phone = (document.getElementById('client-phone') as HTMLInputElement).value || "Not Provided";
 				const category = (document.getElementById('client-category') as HTMLSelectElement).value;
+				
+				// Map Contact Time Options
+				const timeStart = (document.getElementById('time-start') as HTMLSelectElement).value;
+				const timeEnd = (document.getElementById('time-end') as HTMLSelectElement).value;
+				const bestTimeToContact = (timeStart && timeEnd) ? `Between ${timeStart} and ${timeEnd}` : "Not Provided";
+				
+				const projectSummary = summaryTextArea.value.trim();
 
-				// Format text sequentially for clear email reading
+				// Construct output package array for email dispatch
 				const emailSubject = encodeURIComponent(`Inquiry from ${name} - ${category.substring(0, 30)}...`);
 				const emailBody = encodeURIComponent(
 					`New Website Contact Form Submission:\n\n` +
@@ -479,14 +634,17 @@ const slides = [
 					`Website URL: ${url}\n` +
 					`Email Address: ${email}\n` +
 					`Phone Number: ${phone}\n` +
-					`Project Category: ${category}\n`
+					`Project Category: ${category}\n` +
+					`Best Time To Contact: ${bestTimeToContact}\n\n` +
+					`Project Summary & Questions:\n${projectSummary}\n`
 				);
 
-				// Route to user's native email client setup
+				// Route payload outward to device mail configuration
 				window.location.href = `mailto:lorideveloper@://gmail.com{emailSubject}&body=${emailBody}`;
 				
-				// Automatically dismiss overlay block upon hand-off execution
+				// Close interactive modal workspace upon safe processing handoff
 				overlayElement?.classList.remove('open');
+				contactForm.reset();
 			});
 		</script>
 
