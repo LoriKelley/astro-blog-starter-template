@@ -548,7 +548,7 @@ const slides = [
 	const standardSummaryError = document.getElementById('err-client-summary');
 
 	summaryTextArea?.addEventListener('input', () => {
-		const currentLength = summaryTextArea.value.length;
+		const currentLength = summaryTextArea.value ? summaryTextArea.value.length : 0;
 		if (currentLength > 0 && currentLength < 30) {
 			if (minErrorLabel) minErrorLabel.style.display = 'block';
 			if (standardSummaryError) standardSummaryError.style.display = 'none';
@@ -571,19 +571,43 @@ const slides = [
 
 		let formIsValid = true;
 
-		const requiredElements = contactForm.querySelectorAll('[data-required="true"]');
-		requiredElements.forEach(elem => {
-			const value = elem.value.trim();
-			const id = elem.id;
-			const errorSpan = document.getElementById(`err-${id}`);
+		// Select element references cleanly to prevent strict compilation crashes
+		const nameInput = document.getElementById('client-name');
+		const emailInput = document.getElementById('client-email');
+		const categorySelect = document.getElementById('client-category');
+		const companyInput = document.getElementById('client-company');
+		const urlInput = document.getElementById('client-url');
+		const phoneInput = document.getElementById('client-phone');
+		const timeStartSelect = document.getElementById('time-start');
+		const timeEndSelect = document.getElementById('time-end');
 
-			if (!value) {
-				if (errorSpan) errorSpan.style.display = 'block';
-				elem.classList.add('input-error-border');
-				formIsValid = false;
-			}
-		});
+		// Explicit baseline form input verification checks
+		if (!nameInput || !nameInput.value.trim()) {
+			const err = document.getElementById('err-client-name');
+			if (err) err.style.display = 'block';
+			nameInput?.classList.add('input-error-border');
+			formIsValid = false;
+		}
+		if (!emailInput || !emailInput.value.trim()) {
+			const err = document.getElementById('err-client-email');
+			if (err) err.style.display = 'block';
+			emailInput?.classList.add('input-error-border');
+			formIsValid = false;
+		}
+		if (!categorySelect || !categorySelect.value) {
+			const err = document.getElementById('err-client-category');
+			if (err) err.style.display = 'block';
+			categorySelect?.classList.add('input-error-border');
+			formIsValid = false;
+		}
+		if (!summaryTextArea || !summaryTextArea.value.trim()) {
+			const err = document.getElementById('err-client-summary');
+			if (err) err.style.display = 'block';
+			summaryTextArea?.classList.add('input-error-border');
+			formIsValid = false;
+		}
 
+		// Double check character summary range minimum boundaries
 		if (summaryTextArea && summaryTextArea.value.trim().length > 0 && summaryTextArea.value.trim().length < 30) {
 			if (minErrorLabel) minErrorLabel.style.display = 'block';
 			summaryTextArea.classList.add('input-error-border');
@@ -592,25 +616,26 @@ const slides = [
 
 		if (!formIsValid) return;
 
-		const name = document.getElementById('client-name').value;
-		const company = document.getElementById('client-company').value || "Not Provided";
-		const url = document.getElementById('client-url').value || "Not Provided";
-		const email = document.getElementById('client-email').value;
-		const phone = document.getElementById('client-phone').value || "Not Provided";
-		const category = document.getElementById('client-category').value;
+		// Safe data parameter readings
+		const name = nameInput.value;
+		const company = companyInput ? companyInput.value || "Not Provided" : "Not Provided";
+		const url = urlInput ? urlInput.value || "Not Provided" : "Not Provided";
+		const email = emailInput.value;
+		const phone = phoneInput ? phoneInput.value || "Not Provided" : "Not Provided";
+		const category = categorySelect.value;
 		
-		const timeStart = document.getElementById('time-start').value;
-		const timeEnd = document.getElementById('time-end').value;
+		const timeStart = timeStartSelect ? timeStartSelect.value : "";
+		const timeEnd = timeEndSelect ? timeEndSelect.value : "";
 		const bestTimeToContact = (timeStart && timeEnd) ? `Between ${timeStart} and ${timeEnd}` : "Not Provided";
 		const projectSummary = summaryTextArea.value.trim();
 
-		// Create Web3Forms asynchronous payload format
+		// Compile parameters cleanly into hidden data layouts
 		const formData = new FormData();
-		formData.append("access_key", "38736f3d-a04b-4eaa-9667-4f4d2f977b83"); // <--- PASTE YOUR UNIQUE KEY STRING HERE
+		formData.append("access_key", "38736f3d-a04b-4eaa-9667-4f4d2f977b83"); 
 		formData.append("subject", `Contact Inquiry from ${name} via lorikelley.dev`);
 		formData.append("from_name", "noreply@lorikelley.dev");
 		
-		formData.append("Message Details", 
+		formData.append("message", 
 			`Name: ${name}\n` +
 			`Company: ${company}\n` +
 			`Website URL: ${url}\n` +
@@ -621,45 +646,23 @@ const slides = [
 			`Project Summary & Questions:\n${projectSummary}`
 		);
 
-		// Dispatches data silently via background network request
-				// Send the form data cleanly via JSON to completely bypass browser CORS locks
-		fetch("https://web3forms.com", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				"Accept": "application/json"
-			},
-			body: JSON.stringify({
-				access_key: "38736f3d-a04b-4eaa-9667-4f4d2f977b83", // <--- KEEP YOUR ACCESS KEY TOKEN HERE
-				subject: `Contact Inquiry from ${name} via lorikelley.dev`,
-				from_name: "noreply@lorikelley.dev",
-				message: `Name: ${name}\n` +
-				         `Company: ${company}\n` +
-				         `Website URL: ${url}\n` +
-				         `Email: ${email}\n` +
-				         `Phone: ${phone}\n` +
-				         `Project Category: ${category}\n` +
-				         `Best Time To Contact: ${bestTimeToContact}\n\n` +
-				         `Project Summary & Questions:\n${projectSummary}`
-			})
-		})
-		.then(async (response) => {
-			const resData = await response.json();
-			if (response.ok && resData.success) {
-				alert("Thank you! Your request has been sent successfully.");
-				if (overlayElement) overlayElement.classList.remove('open');
-				contactForm.reset();
-			} else {
-				alert("Web3Forms Server Error: " + (resData.message || "Invalid Token Key"));
-			}
-		})
-		.catch(error => {
-			console.error("Fetch Error:", error);
-			alert("Local browser block. Please check your internet connection or try a different browser.");
-		});
+		// Append redirection parameter so it returns to home cleanly upon submit processing
+		formData.append("redirect", "https://lorikelley.dev");
 
+		// Convert variables seamlessly into input parameters
+		for (const [key, val] of formData.entries()) {
+			const hiddenInput = document.createElement("input");
+			hiddenInput.type = "hidden";
+			hiddenInput.name = key;
+			hiddenInput.value = val;
+			contactForm.appendChild(hiddenInput);
+		}
+
+		if (overlayElement) overlayElement.classList.remove('open');
+		contactForm.submit(); 
 	});
 </script>
+
 
 	</body>
 </html>
