@@ -514,120 +514,134 @@ const slides = [
 		</div>
 
 		<script>
-			const slides = document.querySelectorAll('.slide');
-			const nextBtnGroup = document.getElementById('next-arrow-group');
-			const navTextLabel = document.getElementById('nav-text-label');
-			let currentIndex = 0;
+	const slides = document.querySelectorAll('.slide');
+	const nextBtnGroup = document.getElementById('next-arrow-group');
+	const navTextLabel = document.getElementById('nav-text-label');
+	let currentIndex = 0;
 
-			nextBtnGroup?.addEventListener('click', () => {
-				slides[currentIndex].classList.remove('active');
-				currentIndex = (currentIndex + 1) % slides.length;
-				slides[currentIndex].classList.add('active');
+	nextBtnGroup?.addEventListener('click', () => {
+		slides[currentIndex].classList.remove('active');
+		currentIndex = (currentIndex + 1) % slides.length;
+		slides[currentIndex].classList.add('active');
 
-				if (currentIndex === slides.length - 1) {
-					if (navTextLabel) navTextLabel.innerText = "Start Over";
-				} else {
-					if (navTextLabel) navTextLabel.innerText = "Read More";
-				}
-			});
+		if (currentIndex === slides.length - 1) {
+			if (navTextLabel) navTextLabel.innerText = "Start Over";
+		} else {
+			if (navTextLabel) navTextLabel.innerText = "Read More";
+		}
+	});
 
-			const overlayElement = document.getElementById('contact-overlay');
-			const openTrigger = document.getElementById('open-overlay-trigger');
-			const closeTrigger = document.getElementById('close-overlay-trigger');
+	const overlayElement = document.getElementById('contact-overlay');
+	const openTrigger = document.getElementById('open-overlay-trigger');
+	const closeTrigger = document.getElementById('close-overlay-trigger');
 
-			openTrigger?.addEventListener('click', () => {
-				overlayElement?.classList.add('open');
-			});
+	openTrigger?.addEventListener('click', () => {
+		overlayElement?.classList.add('open');
+	});
 
-			closeTrigger?.addEventListener('click', () => {
-				overlayElement?.classList.remove('open');
-			});
+	closeTrigger?.addEventListener('click', () => {
+		overlayElement?.classList.remove('open');
+	});
 
-			const summaryTextArea = document.getElementById('client-summary') as HTMLTextAreaElement;
-			const minErrorLabel = document.getElementById('err-client-summary-min') as HTMLElement;
-			const standardSummaryError = document.getElementById('err-client-summary') as HTMLElement;
+	const summaryTextArea = document.getElementById('client-summary');
+	const minErrorLabel = document.getElementById('err-client-summary-min');
+	const standardSummaryError = document.getElementById('err-client-summary');
 
-			summaryTextArea?.addEventListener('input', () => {
-				const currentLength = summaryTextArea.value.length;
-				if (currentLength > 0 && currentLength < 30) {
-					minErrorLabel.style.with = 'block';
-					minErrorLabel.style.display = 'block';
-					standardSummaryError.style.display = 'none';
-					summaryTextArea.classList.add('input-error-border');
-				} else {
-					minErrorLabel.style.display = 'none';
-					summaryTextArea.classList.remove('input-error-border');
-				}
-			});
+	summaryTextArea?.addEventListener('input', () => {
+		const currentLength = summaryTextArea.value.length;
+		if (currentLength > 0 && currentLength < 30) {
+			if (minErrorLabel) minErrorLabel.style.display = 'block';
+			if (standardSummaryError) standardSummaryError.style.display = 'none';
+			summaryTextArea.classList.add('input-error-border');
+		} else {
+			if (minErrorLabel) minErrorLabel.style.display = 'none';
+			summaryTextArea.classList.remove('input-error-border');
+		}
+	});
 
-			// SWITCH TO BACKEND API RESTRUCTURING
-			const contactForm = document.getElementById('developer-contact-form');
-			contactForm?.addEventListener('submit', (e) => {
-				e.preventDefault();
+	// SWITCH TO BACKEND API RESTRUCTURING (UPDATED FOR WEB3FORMS)
+	const contactForm = document.getElementById('developer-contact-form');
+	contactForm?.addEventListener('submit', (e) => {
+		e.preventDefault();
 
-				const errors = document.querySelectorAll('.error-warning-label');
-				errors.forEach(err => (err as HTMLElement).style.display = 'none');
-				const inputs = document.querySelectorAll('.form-input, .form-select, .form-textarea');
-				inputs.forEach(inp => inp.classList.remove('input-error-border'));
+		const errors = document.querySelectorAll('.error-warning-label');
+		errors.forEach(err => (err).style.display = 'none');
+		const inputs = document.querySelectorAll('.form-input, .form-select, .form-textarea');
+		inputs.forEach(inp => inp.classList.remove('input-error-border'));
 
-				let formIsValid = true;
+		let formIsValid = true;
 
-				const requiredElements = contactForm.querySelectorAll('[data-required="true"]');
-				requiredElements.forEach(elem => {
-					const value = (elem as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement).value.trim();
-					const id = elem.id;
-					const errorSpan = document.getElementById(`err-${id}`);
+		const requiredElements = contactForm.querySelectorAll('[data-required="true"]');
+		requiredElements.forEach(elem => {
+			const value = elem.value.trim();
+			const id = elem.id;
+			const errorSpan = document.getElementById(`err-${id}`);
 
-					if (!value) {
-						if (errorSpan) errorSpan.style.display = 'block';
-						elem.classList.add('input-error-border');
-						formIsValid = false;
-					}
-				});
+			if (!value) {
+				if (errorSpan) errorSpan.style.display = 'block';
+				elem.classList.add('input-error-border');
+				formIsValid = false;
+			}
+		});
 
-				if (summaryTextArea.value.trim().length > 0 && summaryTextArea.value.trim().length < 30) {
-					minErrorLabel.style.display = 'block';
-					summaryTextArea.classList.add('input-error-border');
-					formIsValid = false;
-					return;
-				}
+		if (summaryTextArea && summaryTextArea.value.trim().length > 0 && summaryTextArea.value.trim().length < 30) {
+			if (minErrorLabel) minErrorLabel.style.display = 'block';
+			summaryTextArea.classList.add('input-error-border');
+			formIsValid = false;
+		}
 
-				if (!formIsValid) return;
+		if (!formIsValid) return;
 
-				const name = (document.getElementById('client-name') as HTMLInputElement).value;
-				const company = (document.getElementById('client-company') as HTMLInputElement).value || "Not Provided";
-				const url = (document.getElementById('client-url') as HTMLInputElement).value || "Not Provided";
-				const email = (document.getElementById('client-email') as HTMLInputElement).value;
-				const phone = (document.getElementById('client-phone') as HTMLInputElement).value || "Not Provided";
-				const category = (document.getElementById('client-category') as HTMLSelectElement).value;
-				
-				const timeStart = (document.getElementById('time-start') as HTMLSelectElement).value;
-				const timeEnd = (document.getElementById('time-end') as HTMLSelectElement).value;
-				const bestTimeToContact = (timeStart && timeEnd) ? `Between ${timeStart} and ${timeEnd}` : "Not Provided";
-				const projectSummary = summaryTextArea.value.trim();
+		const name = document.getElementById('client-name').value;
+		const company = document.getElementById('client-company').value || "Not Provided";
+		const url = document.getElementById('client-url').value || "Not Provided";
+		const email = document.getElementById('client-email').value;
+		const phone = document.getElementById('client-phone').value || "Not Provided";
+		const category = document.getElementById('client-category').value;
+		
+		const timeStart = document.getElementById('time-start').value;
+		const timeEnd = document.getElementById('time-end').value;
+		const bestTimeToContact = (timeStart && timeEnd) ? `Between ${timeStart} and ${timeEnd}` : "Not Provided";
+		const projectSummary = summaryTextArea.value.trim();
 
-				// OPTION: You can register for a free account at web3forms.com or formspree.io to get an API Token Key.
-				// For now, this fallback payload compiles the exact data format securely into a direct layout:
-				const emailSubject = encodeURIComponent(`Contact Inquiry from ${name} via lorikelley.dev`);
-				const emailBody = encodeURIComponent(
-					`New Client Contact Form Submission:\n\n` +
-					`From Email Account: noreply@lorikelley.dev\n` +
-					`Name: ${name}\n` +
-					`Company Name: ${company}\n` +
-					`Website URL: ${url}\n` +
-					`Email Address: ${email}\n` +
-					`Phone Number: ${phone}\n` +
-					`Project Category: ${category}\n` +
-					`Best Time To Contact: ${bestTimeToContact}\n\n` +
-					`Project Summary & Questions:\n${projectSummary}\n`
-				);
+		// Create Web3Forms asynchronous payload format
+		const formData = new FormData();
+		formData.append("access_key", "38736f3d-a04b-4eaa-9667-4f4d2f977b83"); // <--- PASTE YOUR UNIQUE KEY STRING HERE
+		formData.append("subject", `Contact Inquiry from ${name} via lorikelley.dev`);
+		formData.append("from_name", "noreply@lorikelley.dev");
+		
+		formData.append("Message Details", 
+			`Name: ${name}\n` +
+			`Company: ${company}\n` +
+			`Website URL: ${url}\n` +
+			`Email: ${email}\n` +
+			`Phone: ${phone}\n` +
+			`Project Category: ${category}\n` +
+			`Best Time To Contact: ${bestTimeToContact}\n\n` +
+			`Project Summary & Questions:\n${projectSummary}`
+		);
 
-				// Fallback client handoff execution loop link
-				window.location.href = `mailto:lorideveloper@://gmail.com{emailSubject}&body=${emailBody}`;
-				
+		// Dispatches data silently via background network request
+		fetch("https://web3forms.com", {
+			method: "POST",
+			body: formData
+		})
+		.then(response => response.json())
+		.then(data => {
+			if (data.success) {
+				alert("Thank you! Your request has been sent successfully.");
 				overlayElement?.classList.remove('open');
 				contactForm.reset();
-			});
-		</script>
+			} else {
+				alert("Something went wrong. Please try again.");
+			}
+		})
+		.catch(error => {
+			console.error("Error:", error);
+			alert("Network error. Please try again later.");
+		});
+	});
+</script>
+
 	</body>
 </html>
