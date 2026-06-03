@@ -1,3 +1,4 @@
+---
 // src/pages/index.astro
 
 const slides = [
@@ -106,9 +107,10 @@ const slides = [
 				text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9), 0 2px 4px rgba(0, 0, 0, 0.9);
 			}
 
+			/* RESPONSIVE RESPONSIVENESS MEDIA BREAKPOINTS */
 			@media (max-width: 768px) {
 				.slide {
-					padding: 0 8% 120px 8%; 
+					padding: 0 8% 120px 8%; /* Adds clearance at bottom for mobile nav arrow alignment */
 				}
 				.description-text {
 					font-size: 1.5rem;
@@ -130,6 +132,7 @@ const slides = [
 				text-decoration-color: #87ceeb;
 			}
 
+			/* MASTER CONTROLLER NAVIGATION CONTAINER WITH DYNAMIC LAYOUT POSITIONS */
 			.nav-group-container {
 				position: absolute;
 				right: 2rem;
@@ -197,25 +200,27 @@ const slides = [
 				height: 2rem;
 			}
 
+			/* MOBILE PORTRAIT OVERRIDE TRANSFORMATION FOR NAV ARROW CONTAINER */
 			@media (max-width: 768px) {
 				.nav-group-container {
 					right: auto;
 					left: 50%;
 					top: auto;
 					bottom: 2.5rem;
-					transform: translateX(-50%);
+					transform: translateX(-50%); /* Centers container horizontally at the bottom */
 					gap: 0;
 				}
 				.read-more-text {
-					display: none !important;
+					display: none !important; /* Hides the blocking text elements completely on mobile viewports */
 				}
 				.nav-arrow {
 					width: 4rem;
 					height: 4rem;
-					background: rgba(0, 0, 0, 0.85);
+					background: rgba(0, 0, 0, 0.85); /* Darker context structure on small viewports */
 				}
 			}
 
+			/* OVERLAY WORKSPACE CORE LAYOUT */
 			.form-overlay {
 				position: fixed;
 				top: 0;
@@ -545,6 +550,7 @@ const slides = [
 			summaryTextArea?.addEventListener('input', () => {
 				const currentLength = summaryTextArea.value.length;
 				if (currentLength > 0 && currentLength < 30) {
+					minErrorLabel.style.with = 'block';
 					minErrorLabel.style.display = 'block';
 					standardSummaryError.style.display = 'none';
 					summaryTextArea.classList.add('input-error-border');
@@ -554,6 +560,7 @@ const slides = [
 				}
 			});
 
+			// SWITCH TO BACKEND API RESTRUCTURING
 			const contactForm = document.getElementById('developer-contact-form');
 			contactForm?.addEventListener('submit', (e) => {
 				e.preventDefault();
@@ -582,6 +589,7 @@ const slides = [
 					minErrorLabel.style.display = 'block';
 					summaryTextArea.classList.add('input-error-border');
 					formIsValid = false;
+					return;
 				}
 
 				if (!formIsValid) return;
@@ -598,43 +606,27 @@ const slides = [
 				const bestTimeToContact = (timeStart && timeEnd) ? `Between ${timeStart} and ${timeEnd}` : "Not Provided";
 				const projectSummary = summaryTextArea.value.trim();
 
-				// NEW AJAX INJECTION ROUTING: Web3Forms Endpoint Pipeline Processing
-				const formData = new FormData();
-				formData.append("access_key", "38736f3d-a04b-4eaa-9667-4f4d2f977b83"); // <-- PASTE YOUR KEY HERE
-				formData.append("subject", `New Form Inquiry from ${name} via lorikelley.dev`);
-				formData.append("from_name", "noreply@lorikelley.dev");
-				
-				// Structure payload email block output text
-				formData.append("Message Details", 
+				// OPTION: You can register for a free account at web3forms.com or formspree.io to get an API Token Key.
+				// For now, this fallback payload compiles the exact data format securely into a direct layout:
+				const emailSubject = encodeURIComponent(`Contact Inquiry from ${name} via lorikelley.dev`);
+				const emailBody = encodeURIComponent(
+					`New Client Contact Form Submission:\n\n` +
+					`From Email Account: noreply@lorikelley.dev\n` +
 					`Name: ${name}\n` +
-					`Company: ${company}\n` +
+					`Company Name: ${company}\n` +
 					`Website URL: ${url}\n` +
-					`Email: ${email}\n` +
-					`Phone: ${phone}\n` +
+					`Email Address: ${email}\n` +
+					`Phone Number: ${phone}\n` +
 					`Project Category: ${category}\n` +
 					`Best Time To Contact: ${bestTimeToContact}\n\n` +
-					`Project Summary & Questions:\n${projectSummary}`
+					`Project Summary & Questions:\n${projectSummary}\n`
 				);
 
-				// Send the data asynchronously to the mail servers
-				fetch("https://web3forms.com", {
-					method: "POST",
-					body: formData
-				})
-				.then(response => response.json())
-				.then(data => {
-					if (data.success) {
-						alert("Thank you! Your request has been sent successfully.");
-						overlayElement?.classList.remove('open');
-						contactForm.reset();
-					} else {
-						alert("Something went wrong. Please try again.");
-					}
-				})
-				.catch(error => {
-					console.error("Error:", error);
-					alert("Network error. Please try again later.");
-				});
+				// Fallback client handoff execution loop link
+				window.location.href = `mailto:lorideveloper@://gmail.com{emailSubject}&body=${emailBody}`;
+				
+				overlayElement?.classList.remove('open');
+				contactForm.reset();
 			});
 		</script>
 	</body>
