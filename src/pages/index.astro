@@ -622,24 +622,42 @@ const slides = [
 		);
 
 		// Dispatches data silently via background network request
+				// Send the form data cleanly via JSON to completely bypass browser CORS locks
 		fetch("https://web3forms.com", {
 			method: "POST",
-			body: formData
+			headers: {
+				"Content-Type": "application/json",
+				"Accept": "application/json"
+			},
+			body: JSON.stringify({
+				access_key: "38736f3d-a04b-4eaa-9667-4f4d2f977b83", // <--- KEEP YOUR ACCESS KEY TOKEN HERE
+				subject: `Contact Inquiry from ${name} via lorikelley.dev`,
+				from_name: "noreply@lorikelley.dev",
+				message: `Name: ${name}\n` +
+				         `Company: ${company}\n` +
+				         `Website URL: ${url}\n` +
+				         `Email: ${email}\n` +
+				         `Phone: ${phone}\n` +
+				         `Project Category: ${category}\n` +
+				         `Best Time To Contact: ${bestTimeToContact}\n\n` +
+				         `Project Summary & Questions:\n${projectSummary}`
+			})
 		})
-		.then(response => response.json())
-		.then(data => {
-			if (data.success) {
+		.then(async (response) => {
+			const resData = await response.json();
+			if (response.ok && resData.success) {
 				alert("Thank you! Your request has been sent successfully.");
-				overlayElement?.classList.remove('open');
+				if (overlayElement) overlayElement.classList.remove('open');
 				contactForm.reset();
 			} else {
-				alert("Something went wrong. Please try again.");
+				alert("Web3Forms Server Error: " + (resData.message || "Invalid Token Key"));
 			}
 		})
 		.catch(error => {
-			console.error("Error:", error);
-			alert("Network error. Please try again later.");
+			console.error("Fetch Error:", error);
+			alert("Local browser block. Please check your internet connection or try a different browser.");
 		});
+
 	});
 </script>
 
