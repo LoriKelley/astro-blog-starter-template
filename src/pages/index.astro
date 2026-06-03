@@ -421,95 +421,103 @@ const slides = [
 				<h2 class="form-title">Contact Information</h2>
 				
 				<form id="developer-contact-form" action="https://web3forms.com" method="POST" novalidate>
-					<div class="form-group">
-						<label for="client-name">Name<span>*</span></label>
-						<input type="text" id="client-name" class="form-input" data-required="true" />
-						<span class="error-warning-label" id="err-client-name">This field is required</span>
-					</div>
+    <!-- Web3Forms Server Configuration Fields -->
+    <input type="hidden" name="access_key" value="38736f3d-a04b-4eaa-9667-4f4d2f977b83" />
+    <input type="hidden" name="subject" value="Contact Inquiry via lorikelley.dev" />
+    <input type="hidden" name="from_name" value="noreply@lorikelley.dev" />
+    <input type="hidden" name="redirect" value="https://lorikelley.dev" />
 
-					<div class="form-group">
-						<label for="client-company">Company Name</label>
-						<input type="text" id="client-company" class="form-input" />
-					</div>
+    <div class="form-group">
+        <label for="client-name">Name<span>*</span></label>
+        <!-- Added native name attributes so Web3Forms can capture the data fields directly -->
+        <input type="text" id="client-name" name="name" class="form-input" />
+        <span class="error-warning-label" id="err-client-name">This field is required</span>
+    </div>
 
-					<div class="form-group">
-						<label for="client-url">Website URL</label>
-						<input type="url" id="client-url" class="form-input" placeholder="https://" />
-					</div>
+    <div class="form-group">
+        <label for="client-company">Company Name</label>
+        <input type="text" id="client-company" name="company" class="form-input" />
+    </div>
 
-					<div class="form-group">
-						<label for="client-email">Email Address<span>*</span></label>
-						<input type="email" id="client-email" class="form-input" data-required="true" />
-						<span class="error-warning-label" id="err-client-email">This field is required</span>
-					</div>
+    <div class="form-group">
+        <label for="client-url">Website URL</label>
+        <input type="url" id="client-url" name="website" class="form-input" placeholder="https://" />
+    </div>
 
-					<div class="form-group">
-						<label for="client-phone">Phone Number</label>
-						<input type="tel" id="client-phone" class="form-input" />
-					</div>
+    <div class="form-group">
+        <label for="client-email">Email Address<span>*</span></label>
+        <input type="email" id="client-email" name="email" class="form-input" />
+        <span class="error-warning-label" id="err-client-email">This field is required</span>
+    </div>
 
-					<div class="form-group">
-						<label for="client-category">Project Category<span>*</span></label>
-						<select id="client-category" class="form-select" data-required="true">
-							<option value="" disabled selected>Select a category...</option>
-							<option value="Full-Stack, long-term website project (more than 30 days)">Full-Stack, long-term website project (more than 30 days)</option>
-							<option value="Full-Stack, short term website project">Full-Stack, short term website project</option>
-							<option value="Help with a few design (frontend) bugs on my website">Help with a few design (frontend) bugs on my website</option>
-							<option value="Help with a few backend bugs on my website">Help with a few backend bugs on my website</option>
-							<option value="Help me figure out an error on my wordpress site">Help me figure out an error on my wordpress site</option>
-							<option value="Write a custom script, template, theme, or plugin for a CMS (Wordpress, Drupal, etc) to fit my website">Write a custom script, template, theme, or plugin for a CMS (Wordpress, Drupal, etc) to fit my website</option>
-						</select>
-						<span class="error-warning-label" id="err-client-category">This field is required</span>
-					</div>
+    <div class="form-group">
+        <label for="client-phone">Phone Number</label>
+        <input type="tel" id="client-phone" name="phone" class="form-input" />
+    </div>
 
-					<div class="form-group">
-						<label>Best time to contact you: Between...</label>
-						<div class="time-select-row">
-							<select id="time-start" class="form-select">
-								<option value="" selected>Select start time...</option>
-								<option value="8 AM">8 AM</option>
-								<option value="9 AM">9 AM</option>
-								<option value="10 AM">10 AM</option>
-								<option value="11 AM">11 AM</option>
-								<option value="12 PM">12 PM</option>
-								<option value="1 PM">1 PM</option>
-								<option value="2 PM">2 PM</option>
-								<option value="3 PM">3 PM</option>
-								<option value="4 PM">4 PM</option>
-								<option value="5 PM">5 PM</option>
-								<option value="6 PM">6 PM</option>
-								<option value="7 PM">7 PM</option>
-								<option value="8 PM">8 PM</option>
-							</select>
-							<span class="time-split-word">and</span>
-							<select id="time-end" class="form-select">
-								<option value="" selected>Select end time...</option>
-								<option value="9 AM">9 AM</option>
-								<option value="10 AM">10 AM</option>
-								<option value="11 AM">11 AM</option>
-								<option value="12 PM">12 PM</option>
-								<option value="1 PM">1 PM</option>
-								<option value="2 PM">2 PM</option>
-								<option value="3 PM">3 PM</option>
-								<option value="4 PM">4 PM</option>
-								<option value="5 PM">5 PM</option>
-								<option value="6 PM">6 PM</option>
-								<option value="7 PM">7 PM</option>
-								<option value="8 PM">8 PM</option>
-								<option value="9 PM">9 PM</option>
-							</select>
-						</div>
-					</div>
+    <div class="form-group">
+        <label for="client-category">Project Category<span>*</span></label>
+        <select id="client-category" name="category" class="form-select">
+            <option value="" disabled selected>Select a category...</option>
+            <option value="Full-Stack, long-term website project (more than 30 days)">Full-Stack, long-term website project (more than 30 days)</option>
+            <option value="Full-Stack, short term website project">Full-Stack, short term website project</option>
+            <option value="Help with a few design (frontend) bugs on my website">Help with a few design (frontend) bugs on my website</option>
+            <option value="Help with a few backend bugs on my website">Help with a few backend bugs on my website</option>
+            <option value="Help me figure out an error on my wordpress site">Help me figure out an error on my wordpress site</option>
+            <option value="Write a custom script, template, theme, or plugin for a CMS (Wordpress, Drupal, etc) to fit my website">Write a custom script, template, theme, or plugin for a CMS (Wordpress, Drupal, etc) to fit my website</option>
+        </select>
+        <span class="error-warning-label" id="err-client-category">This field is required</span>
+    </div>
 
-					<div class="form-group">
-						<label for="client-summary">Describe a small summary of your project and questions:<span>*</span></label>
-						<textarea id="client-summary" class="form-textarea" maxlength="1000" data-required="true"></textarea>
-						<span class="error-warning-label" id="err-client-summary">This field is required</span>
-						<span class="error-warning-label" id="err-client-summary-min">You haven't reached the minimum amount of characters- please describe your reason for contacting</span>
-					</div>
+    <div class="form-group">
+        <label>Best time to contact you: Between...</label>
+        <div class="time-select-row">
+            <select id="time-start" name="preferred_start_time" class="form-select">
+                <option value="" selected>Select start time...</option>
+                <option value="8 AM">8 AM</option>
+                <option value="9 AM">9 AM</option>
+                <option value="10 AM">10 AM</option>
+                <option value="11 AM">11 AM</option>
+                <option value="12 PM">12 PM</option>
+                <option value="1 PM">1 PM</option>
+                <option value="2 PM">2 PM</option>
+                <option value="3 PM">3 PM</option>
+                <option value="4 PM">4 PM</option>
+                <option value="5 PM">5 PM</option>
+                <option value="6 PM">6 PM</option>
+                <option value="7 PM">7 PM</option>
+                <option value="8 PM">8 PM</option>
+            </select>
+            <span class="time-split-word">and</span>
+            <select id="time-end" name="preferred_end_time" class="form-select">
+                <option value="" selected>Select end time...</option>
+                <option value="9 AM">9 AM</option>
+                <option value="10 AM">10 AM</option>
+                <option value="11 AM">11 AM</option>
+                <option value="12 PM">12 PM</option>
+                <option value="1 PM">1 PM</option>
+                <option value="2 PM">2 PM</option>
+                <option value="3 PM">3 PM</option>
+                <option value="4 PM">4 PM</option>
+                <option value="5 PM">5 PM</option>
+                <option value="6 PM">6 PM</option>
+                <option value="7 PM">7 PM</option>
+                <option value="8 PM">8 PM</option>
+                <option value="9 PM">9 PM</option>
+            </select>
+        </div>
+    </div>
 
-					<button type="submit" class="submit-form-btn">Submit Request</button>
-				</form>
+    <div class="form-group">
+        <label for="client-summary">Describe a small summary of your project and questions:<span>*</span></label>
+        <textarea id="client-summary" name="project_summary" class="form-textarea" maxlength="1000"></textarea>
+        <span class="error-warning-label" id="err-client-summary">This field is required</span>
+        <span class="error-warning-label" id="err-client-summary-min">You haven't reached the minimum amount of characters- please describe your reason for contacting</span>
+    </div>
+
+    <button type="submit" class="submit-form-btn">Submit Request</button>
+</form>
+
 			</div>
 		</div>
 
@@ -559,11 +567,11 @@ const slides = [
 		}
 	});
 
-	// SWITCH TO BACKEND API RESTRUCTURING (UPDATED FOR WEB3FORMS)
+		// SWITCH TO BACKEND API RESTRUCTURING (UPDATED FOR WEB3FORMS NATIVE ACTION)
 	const contactForm = document.getElementById('developer-contact-form');
 	contactForm?.addEventListener('submit', (e) => {
-		e.preventDefault();
-
+		// Do NOT run e.preventDefault() globally at the start, or it blocks native HTML routing paths!
+		
 		const errors = document.querySelectorAll('.error-warning-label');
 		errors.forEach(err => (err).style.display = 'none');
 		const inputs = document.querySelectorAll('.form-input, .form-select, .form-textarea');
@@ -571,17 +579,10 @@ const slides = [
 
 		let formIsValid = true;
 
-		// Select element references cleanly to prevent strict compilation crashes
 		const nameInput = document.getElementById('client-name');
 		const emailInput = document.getElementById('client-email');
 		const categorySelect = document.getElementById('client-category');
-		const companyInput = document.getElementById('client-company');
-		const urlInput = document.getElementById('client-url');
-		const phoneInput = document.getElementById('client-phone');
-		const timeStartSelect = document.getElementById('time-start');
-		const timeEndSelect = document.getElementById('time-end');
 
-		// Explicit baseline form input verification checks
 		if (!nameInput || !nameInput.value.trim()) {
 			const err = document.getElementById('err-client-name');
 			if (err) err.style.display = 'block';
@@ -607,59 +608,20 @@ const slides = [
 			formIsValid = false;
 		}
 
-		// Double check character summary range minimum boundaries
 		if (summaryTextArea && summaryTextArea.value.trim().length > 0 && summaryTextArea.value.trim().length < 30) {
 			if (minErrorLabel) minErrorLabel.style.display = 'block';
 			summaryTextArea.classList.add('input-error-border');
 			formIsValid = false;
 		}
 
-		if (!formIsValid) return;
-
-		// Safe data parameter readings
-		const name = nameInput.value;
-		const company = companyInput ? companyInput.value || "Not Provided" : "Not Provided";
-		const url = urlInput ? urlInput.value || "Not Provided" : "Not Provided";
-		const email = emailInput.value;
-		const phone = phoneInput ? phoneInput.value || "Not Provided" : "Not Provided";
-		const category = categorySelect.value;
-		
-		const timeStart = timeStartSelect ? timeStartSelect.value : "";
-		const timeEnd = timeEndSelect ? timeEndSelect.value : "";
-		const bestTimeToContact = (timeStart && timeEnd) ? `Between ${timeStart} and ${timeEnd}` : "Not Provided";
-		const projectSummary = summaryTextArea.value.trim();
-
-		// Compile parameters cleanly into hidden data layouts
-		const formData = new FormData();
-		formData.append("access_key", "38736f3d-a04b-4eaa-9667-4f4d2f977b83"); 
-		formData.append("subject", `Contact Inquiry from ${name} via lorikelley.dev`);
-		formData.append("from_name", "noreply@lorikelley.dev");
-		
-		formData.append("message", 
-			`Name: ${name}\n` +
-			`Company: ${company}\n` +
-			`Website URL: ${url}\n` +
-			`Email: ${email}\n` +
-			`Phone: ${phone}\n` +
-			`Project Category: ${category}\n` +
-			`Best Time To Contact: ${bestTimeToContact}\n\n` +
-			`Project Summary & Questions:\n${projectSummary}`
-		);
-
-		// Append redirection parameter so it returns to home cleanly upon submit processing
-		formData.append("redirect", "https://lorikelley.dev");
-
-		// Convert variables seamlessly into input parameters
-		for (const [key, val] of formData.entries()) {
-			const hiddenInput = document.createElement("input");
-			hiddenInput.type = "hidden";
-			hiddenInput.name = key;
-			hiddenInput.value = val;
-			contactForm.appendChild(hiddenInput);
+		// Halt execution only if errors exist
+		if (!formIsValid) {
+			e.preventDefault();
+			return;
 		}
 
+		// If form passes all rules, close overlay and let the native form submit proceed to Web3Forms
 		if (overlayElement) overlayElement.classList.remove('open');
-		contactForm.submit(); 
 	});
 </script>
 
