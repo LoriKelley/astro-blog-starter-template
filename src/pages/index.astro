@@ -1,4 +1,3 @@
----
 // src/pages/index.astro
 
 const slides = [
@@ -83,7 +82,7 @@ const slides = [
 				opacity: 0;
 				pointer-events: none;
 				transition: opacity 0.5s ease-in-out;
-				padding: 0 10%;
+				padding: 0 12% 0 10%;
 				box-sizing: border-box;
 			}
 
@@ -108,8 +107,12 @@ const slides = [
 			}
 
 			@media (max-width: 768px) {
+				.slide {
+					padding: 0 8% 120px 8%; 
+				}
 				.description-text {
-					font-size: 1.75rem;
+					font-size: 1.5rem;
+					line-height: 1.5;
 				}
 			}
 
@@ -125,32 +128,6 @@ const slides = [
 			.inline-trigger-link:hover {
 				color: #87ceeb;
 				text-decoration-color: #87ceeb;
-			}
-
-			.certifications-container {
-				display: flex;
-				flex-direction: column;
-				gap: 1rem;
-			}
-
-			.cert-link {
-				display: inline-block;
-				color: #030303; 
-				background: rgba(255, 255, 255, 0.8);
-				padding: 0.5rem 1rem;
-				border-radius: 4px;
-				text-decoration: none;
-				font-size: 1.2rem;
-				font-weight: 600;
-				width: fit-content;
-				box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-				transition: all 0.2s ease;
-			}
-
-			.cert-link:hover {
-				background: #ffffff;
-				transform: translateX(5px);
-				box-shadow: 0 6px 12px rgba(0,0,0,0.2);
 			}
 
 			.nav-group-container {
@@ -173,6 +150,7 @@ const slides = [
 				user-select: none;
 				text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
 				animation: cosmicPulse 1s infinite ease-in-out;
+				display: inline-block;
 			}
 
 			.nav-arrow {
@@ -219,7 +197,25 @@ const slides = [
 				height: 2rem;
 			}
 
-			/* FORM MODAL STRUCTURAL CONTAINER BLOCKS */
+			@media (max-width: 768px) {
+				.nav-group-container {
+					right: auto;
+					left: 50%;
+					top: auto;
+					bottom: 2.5rem;
+					transform: translateX(-50%);
+					gap: 0;
+				}
+				.read-more-text {
+					display: none !important;
+				}
+				.nav-arrow {
+					width: 4rem;
+					height: 4rem;
+					background: rgba(0, 0, 0, 0.85);
+				}
+			}
+
 			.form-overlay {
 				position: fixed;
 				top: 0;
@@ -254,6 +250,12 @@ const slides = [
 				position: relative;
 				border: 1px solid rgba(255, 255, 255, 0.1);
 				box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.45), 0 25px 50px -12px rgba(0, 0, 0, 0.95);
+			}
+
+			@media (max-width: 480px) {
+				.form-card {
+					padding: 1.5rem 1rem;
+				}
 			}
 
 			.close-overlay-btn {
@@ -306,7 +308,6 @@ const slides = [
 				margin-left: 0.25rem;
 			}
 
-			/* TWO DROP-DOWN ARRANGEMENT WITH FLEXBOX */
 			.time-select-row {
 				display: flex;
 				align-items: center;
@@ -348,16 +349,14 @@ const slides = [
 				border-color: #87ceeb;
 			}
 
-			/* HIGH-UTILITY CUSTOM LIVE ERROR CONTAINER STYLES */
 			.error-warning-label {
 				color: #ef4444 !important;
 				font-weight: 700 !important;
 				font-size: 0.8rem !important;
 				margin-top: 0.25rem;
-				display: none; /* Injected dynamically by JavaScript hook events */
+				display: none; 
 			}
 
-			/* Input highlight flag for native focus errors */
 			.input-error-border {
 				border-color: #ef4444 !important;
 			}
@@ -396,16 +395,6 @@ const slides = [
 							) : (
 								<p class="description-text">{slide.text}</p>
 							)}
-							
-							{slide.links && slide.links.length > 0 && (
-								<div class="certifications-container">
-									{slide.links.map(link => (
-										<a href={link.url} target="_blank" rel="noopener noreferrer" class="cert-link">
-											{link.name} &rarr;
-										</a>
-									))}
-								</div>
-							)}
 						</div>
 					</section>
 				))}
@@ -421,13 +410,11 @@ const slides = [
 			</div>
 		</main>
 
-		<!-- INTERACTIVE CONTACT FORM MODAL SYSTEM -->
 		<div id="contact-overlay" class="form-overlay">
 			<div class="form-card">
 				<button id="close-overlay-trigger" class="close-overlay-btn">Close</button>
 				<h2 class="form-title">Contact Information</h2>
 				
-				<!-- Native validation overridden via novalidate to allow custom styled error labels -->
 				<form id="developer-contact-form" novalidate>
 					<div class="form-group">
 						<label for="client-name">Name<span>*</span></label>
@@ -470,7 +457,6 @@ const slides = [
 						<span class="error-warning-label" id="err-client-category">This field is required</span>
 					</div>
 
-					<!-- ADDITION 1: TIME RANGE DROP-DOWN MATRIX FIELDS -->
 					<div class="form-group">
 						<label>Best time to contact you: Between...</label>
 						<div class="time-select-row">
@@ -510,7 +496,6 @@ const slides = [
 						</div>
 					</div>
 
-					<!-- ADDITION 2: PROJECT SUMMARY TEXTAREA CONTAINER -->
 					<div class="form-group">
 						<label for="client-summary">Describe a small summary of your project and questions:<span>*</span></label>
 						<textarea id="client-summary" class="form-textarea" maxlength="1000" data-required="true"></textarea>
@@ -524,7 +509,6 @@ const slides = [
 		</div>
 
 		<script>
-			// Slide Engine Component Core
 			const slides = document.querySelectorAll('.slide');
 			const nextBtnGroup = document.getElementById('next-arrow-group');
 			const navTextLabel = document.getElementById('nav-text-label');
@@ -535,7 +519,6 @@ const slides = [
 				currentIndex = (currentIndex + 1) % slides.length;
 				slides[currentIndex].classList.add('active');
 
-				// DYNAMIC OVERRIDE: Alter structural labels if user lands on final slide
 				if (currentIndex === slides.length - 1) {
 					if (navTextLabel) navTextLabel.innerText = "Start Over";
 				} else {
@@ -543,7 +526,6 @@ const slides = [
 				}
 			});
 
-			// Modal Overlay Interactions Functionality
 			const overlayElement = document.getElementById('contact-overlay');
 			const openTrigger = document.getElementById('open-overlay-trigger');
 			const closeTrigger = document.getElementById('close-overlay-trigger');
@@ -556,14 +538,12 @@ const slides = [
 				overlayElement?.classList.remove('open');
 			});
 
-			// LIVE INPUT EVENT HANDLING FOR TEXTAREA LENGTH MINIMUMS
 			const summaryTextArea = document.getElementById('client-summary') as HTMLTextAreaElement;
 			const minErrorLabel = document.getElementById('err-client-summary-min') as HTMLElement;
 			const standardSummaryError = document.getElementById('err-client-summary') as HTMLElement;
 
 			summaryTextArea?.addEventListener('input', () => {
 				const currentLength = summaryTextArea.value.length;
-				
 				if (currentLength > 0 && currentLength < 30) {
 					minErrorLabel.style.display = 'block';
 					standardSummaryError.style.display = 'none';
@@ -574,12 +554,10 @@ const slides = [
 				}
 			});
 
-			// INTERACTIVE SUBMIT CAPTURE EVENT AND ROUTING COMPENDIUM
 			const contactForm = document.getElementById('developer-contact-form');
 			contactForm?.addEventListener('submit', (e) => {
 				e.preventDefault();
 
-				// Reset all error messages and styles before validation
 				const errors = document.querySelectorAll('.error-warning-label');
 				errors.forEach(err => (err as HTMLElement).style.display = 'none');
 				const inputs = document.querySelectorAll('.form-input, .form-select, .form-textarea');
@@ -587,7 +565,6 @@ const slides = [
 
 				let formIsValid = true;
 
-				// Process checking fields with data-required properties
 				const requiredElements = contactForm.querySelectorAll('[data-required="true"]');
 				requiredElements.forEach(elem => {
 					const value = (elem as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement).value.trim();
@@ -601,16 +578,14 @@ const slides = [
 					}
 				});
 
-				// Custom confirmation check for textarea length rules
 				if (summaryTextArea.value.trim().length > 0 && summaryTextArea.value.trim().length < 30) {
 					minErrorLabel.style.display = 'block';
 					summaryTextArea.classList.add('input-error-border');
 					formIsValid = false;
 				}
 
-				if (!formIsValid) return; // Halt script hand-off execution if errors exist
+				if (!formIsValid) return;
 
-				// Map Form Element Parameter Collections
 				const name = (document.getElementById('client-name') as HTMLInputElement).value;
 				const company = (document.getElementById('client-company') as HTMLInputElement).value || "Not Provided";
 				const url = (document.getElementById('client-url') as HTMLInputElement).value || "Not Provided";
@@ -618,35 +593,49 @@ const slides = [
 				const phone = (document.getElementById('client-phone') as HTMLInputElement).value || "Not Provided";
 				const category = (document.getElementById('client-category') as HTMLSelectElement).value;
 				
-				// Map Contact Time Options
 				const timeStart = (document.getElementById('time-start') as HTMLSelectElement).value;
 				const timeEnd = (document.getElementById('time-end') as HTMLSelectElement).value;
 				const bestTimeToContact = (timeStart && timeEnd) ? `Between ${timeStart} and ${timeEnd}` : "Not Provided";
-				
 				const projectSummary = summaryTextArea.value.trim();
 
-				// Construct output package array for email dispatch
-				const emailSubject = encodeURIComponent(`Inquiry from ${name} - ${category.substring(0, 30)}...`);
-				const emailBody = encodeURIComponent(
-					`New Website Contact Form Submission:\n\n` +
+				// NEW AJAX INJECTION ROUTING: Web3Forms Endpoint Pipeline Processing
+				const formData = new FormData();
+				formData.append("access_key", "38736f3d-a04b-4eaa-9667-4f4d2f977b83"); // <-- PASTE YOUR KEY HERE
+				formData.append("subject", `New Form Inquiry from ${name} via lorikelley.dev`);
+				formData.append("from_name", "noreply@lorikelley.dev");
+				
+				// Structure payload email block output text
+				formData.append("Message Details", 
 					`Name: ${name}\n` +
-					`Company Name: ${company}\n` +
+					`Company: ${company}\n` +
 					`Website URL: ${url}\n` +
-					`Email Address: ${email}\n` +
-					`Phone Number: ${phone}\n` +
+					`Email: ${email}\n` +
+					`Phone: ${phone}\n` +
 					`Project Category: ${category}\n` +
 					`Best Time To Contact: ${bestTimeToContact}\n\n` +
-					`Project Summary & Questions:\n${projectSummary}\n`
+					`Project Summary & Questions:\n${projectSummary}`
 				);
 
-				// Route payload outward to device mail configuration
-				window.location.href = `mailto:lorideveloper@://gmail.com{emailSubject}&body=${emailBody}`;
-				
-				// Close interactive modal workspace upon safe processing handoff
-				overlayElement?.classList.remove('open');
-				contactForm.reset();
+				// Send the data asynchronously to the mail servers
+				fetch("https://web3forms.com", {
+					method: "POST",
+					body: formData
+				})
+				.then(response => response.json())
+				.then(data => {
+					if (data.success) {
+						alert("Thank you! Your request has been sent successfully.");
+						overlayElement?.classList.remove('open');
+						contactForm.reset();
+					} else {
+						alert("Something went wrong. Please try again.");
+					}
+				})
+				.catch(error => {
+					console.error("Error:", error);
+					alert("Network error. Please try again later.");
+				});
 			});
 		</script>
-
 	</body>
 </html>
