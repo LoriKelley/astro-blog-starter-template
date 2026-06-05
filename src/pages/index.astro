@@ -421,9 +421,13 @@ const slides = [
 				<h2 class="form-title">Contact Information</h2>
 				
 <form id="developer-contact-form" action="https://web3forms.com" method="POST" novalidate>
-    <!-- Core Web3Forms Routing Tags (No input names on the fields below this) -->
+   <!-- Permanent Configuration Tokens (Pasted exactly as-is) -->
     <input type="hidden" name="access_key" value="38736f3d-a04b-4eaa-9667-4f4d2f977b83" />
     <input type="hidden" name="redirect" value="https://lorikelley.dev" />
+    
+    <!-- Permanent Data Payload Receivers (These accept the JavaScript formatting) -->
+    <input type="hidden" id="hidden-subject-field" name="subject" value="Contact Inquiry via lorikelley.dev" />
+    <input type="hidden" id="hidden-message-field" name="message" value="" />
 
     <div class="form-group">
         <label for="client-name">Name<span>*</span></label>
@@ -564,7 +568,7 @@ const slides = [
 		}
 	});
 
-		// COMPILED MESSAGING WITH BACKEND INTEGRATION
+			// CLEAN VALIDATION ENGINE (NATIVE PARAMETER POPULATION)
 	const contactForm = document.getElementById('developer-contact-form');
 	contactForm?.addEventListener('submit', (e) => {
 		
@@ -620,7 +624,7 @@ const slides = [
 			return;
 		}
 
-		// Read variable strings safely
+		// Read data strings securely
 		const name = nameInput.value;
 		const company = companyInput ? companyInput.value || "Not Provided" : "Not Provided";
 		const url = urlInput ? urlInput.value || "Not Provided" : "Not Provided";
@@ -633,33 +637,28 @@ const slides = [
 		const bestTimeToContact = (timeStart && timeEnd) ? `Between ${timeStart} and ${timeEnd}` : "Not Provided";
 		const projectSummary = summaryTextArea.value.trim();
 
-		// Create dynamic hidden subject tag
-		const subjectInput = document.createElement("input");
-		subjectInput.type = "hidden";
-		subjectInput.name = "subject";
-		subjectInput.value = `New Client Inquiry from ${name}`;
-		contactForm.appendChild(subjectInput);
+		// Update the values inside the permanent hidden fields directly
+		const targetSubject = document.getElementById('hidden-subject-field');
+		const targetMessage = document.getElementById('hidden-message-field');
 
-		// Create the beautifully formatted report string
-		const formattedMessage = 
-			`New Client Contact Form Submission:\n\n` +
-			`Name: ${name}\n` +
-			`Company: ${company}\n` +
-			`Website URL: ${url}\n` +
-			`Email: ${email}\n` +
-			`Phone: ${phone}\n` +
-			`Project Category: ${category}\n` +
-			`Best Time To Contact: ${bestTimeToContact}\n\n` +
-			`Project Summary & Questions:\n${projectSummary}`;
+		if (targetSubject) {
+			targetSubject.value = `New Client Inquiry from ${name}`;
+		}
 
-		// Inject the compiled layout as the single 'message' parameter Web3Forms expects
-		const messageInput = document.createElement("input");
-		messageInput.type = "hidden";
-		messageInput.name = "message";
-		messageInput.value = formattedMessage;
-		contactForm.appendChild(messageInput);
+		if (targetMessage) {
+			targetMessage.value = 
+				`New Client Contact Form Submission:\n\n` +
+				`Name: ${name}\n` +
+				`Company: ${company}\n` +
+				`Website URL: ${url}\n` +
+				`Email: ${email}\n` +
+				`Phone: ${phone}\n` +
+				`Project Category: ${category}\n` +
+				`Best Time To Contact: ${bestTimeToContact}\n\n` +
+				`Project Summary & Questions:\n${projectSummary}`;
+		}
 
-		// Clear overlay window view and let HTML submit the data package safely
+		// Dismiss overlay screen and let the clean form submit natively
 		if (overlayElement) overlayElement.classList.remove('open');
 	});
 
