@@ -518,7 +518,6 @@ const slides = [
 		</div>
 
 <script>
-
 	const slides = document.querySelectorAll('.slide');
 	const nextBtnGroup = document.getElementById('next-arrow-group');
 	const navTextLabel = document.getElementById('nav-text-label');
@@ -548,12 +547,13 @@ const slides = [
 		overlayElement?.classList.remove('open');
 	});
 
-	const summaryTextArea = document.getElementById('client-summary');
-	const minErrorLabel = document.getElementById('err-client-summary-min');
-	const standardSummaryError = document.getElementById('err-client-summary');
-
-	summaryTextArea?.addEventListener('input', () => {
+	// Moving the listener inside to prevent global thread locking
+	document.getElementById('client-summary')?.addEventListener('input', (e) => {
+		const summaryTextArea = e.target;
+		const minErrorLabel = document.getElementById('err-client-summary-min');
+		const standardSummaryError = document.getElementById('err-client-summary');
 		const currentLength = summaryTextArea.value ? summaryTextArea.value.length : 0;
+
 		if (currentLength > 0 && currentLength < 30) {
 			if (minErrorLabel) minErrorLabel.style.display = 'block';
 			if (standardSummaryError) standardSummaryError.style.display = 'none';
@@ -564,10 +564,9 @@ const slides = [
 		}
 	});
 
-			// CLEAN VALIDATION ENGINE (NATIVE PARAMETER POPULATION)
+	// CLEAN NATIVE VALIDATION PASS
 	const contactForm = document.getElementById('developer-contact-form');
 	contactForm?.addEventListener('submit', (e) => {
-		
 		const errors = document.querySelectorAll('.error-warning-label');
 		errors.forEach(err => (err).style.display = 'none');
 		const inputs = document.querySelectorAll('.form-input, .form-select, .form-textarea');
@@ -578,11 +577,8 @@ const slides = [
 		const nameInput = document.getElementById('client-name');
 		const emailInput = document.getElementById('client-email');
 		const categorySelect = document.getElementById('client-category');
-		const companyInput = document.getElementById('client-company');
-		const urlInput = document.getElementById('client-url');
-		const phoneInput = document.getElementById('client-phone');
-		const timeStartSelect = document.getElementById('time-start');
-		const timeEndSelect = document.getElementById('time-end');
+		const summaryTextArea = document.getElementById('client-summary');
+		const minErrorLabel = document.getElementById('err-client-summary-min');
 
 		if (!nameInput || !nameInput.value.trim()) {
 			const err = document.getElementById('err-client-name');
@@ -615,49 +611,15 @@ const slides = [
 			formIsValid = false;
 		}
 
+		// Stop submission if validation checks fail
 		if (!formIsValid) {
 			e.preventDefault();
 			return;
 		}
 
-		// Read data strings securely
-		const name = nameInput.value;
-		const company = companyInput ? companyInput.value || "Not Provided" : "Not Provided";
-		const url = urlInput ? urlInput.value || "Not Provided" : "Not Provided";
-		const email = emailInput.value;
-		const phone = phoneInput ? phoneInput.value || "Not Provided" : "Not Provided";
-		const category = categorySelect.value;
-		
-		const timeStart = timeStartSelect ? timeStartSelect.value : "";
-		const timeEnd = timeEndSelect ? timeEndSelect.value : "";
-		const bestTimeToContact = (timeStart && timeEnd) ? `Between ${timeStart} and ${timeEnd}` : "Not Provided";
-		const projectSummary = summaryTextArea.value.trim();
-
-		// Update the values inside the permanent hidden fields directly
-		const targetSubject = document.getElementById('hidden-subject-field');
-		const targetMessage = document.getElementById('hidden-message-field');
-
-		if (targetSubject) {
-			targetSubject.value = `New Client Inquiry from ${name}`;
-		}
-
-		if (targetMessage) {
-			targetMessage.value = 
-				`New Client Contact Form Submission:\n\n` +
-				`Name: ${name}\n` +
-				`Company: ${company}\n` +
-				`Website URL: ${url}\n` +
-				`Email: ${email}\n` +
-				`Phone: ${phone}\n` +
-				`Project Category: ${category}\n` +
-				`Best Time To Contact: ${bestTimeToContact}\n\n` +
-				`Project Summary & Questions:\n${projectSummary}`;
-		}
-
-		// Dismiss overlay screen and let the clean form submit natively
+		// Clear overlay window safely and let native browser submit the form attributes
 		if (overlayElement) overlayElement.classList.remove('open');
 	});
-
 </script>
 
 	</body>
